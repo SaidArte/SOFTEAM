@@ -48,13 +48,13 @@ router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
         COD_ANIMAL,
         DIR_PSACRIFICIO
         ] , (err , rows , fields) =>{
-          if(!err){
-             res.json({Status: 'Permiso de Sacrificio Registrado'});
-          }else{
-              console.log(err);
-          }
+        if(!err){
+           res.json({Status: 'Permiso de Sacrificio Registrado'});
+        }else{
+            console.log(err);
+        }
 
-   });
+  });
 });
 
 //SELECT ONE

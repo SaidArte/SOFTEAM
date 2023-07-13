@@ -16,3 +16,4 @@ app.use(express.json());
 //Routes
  
 app.use(require ('./routes/psacrificio'));
+app.use(require ('./routes/fierros'));
