@@ -46,8 +46,8 @@ function ensureToken (req, res, next) {
 
 //conexion puerto
 
-app.listen(3306, () =>{
-    console.log('server on port 3306');
+app.listen(3000, () =>{
+    console.log('server on port 3000');
 });
 
 // middleware
@@ -61,3 +61,4 @@ app.use(require ('./routes/fierros'));
 app.use(require ('./routes/PERSONAS'));
 app.use(require ('./routes/seguridad'));
 app.use(require ('./routes/Cventa'));
+app.use(require ('./routes/PTRASLADO'));

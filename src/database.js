@@ -13,7 +13,7 @@ const mysqlConnection = mysql.createConnection({
 
 mysqlConnection.connect( function (err){
      if(!err){
-        console.log('conexion exitosa en el puerto 3306');
+        console.log('conexion exitosa en el puerto 3000');
      }else{
         console.log('BD no conectada');
      }
