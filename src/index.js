@@ -58,7 +58,7 @@ app.use(express.json());
  
 app.use(require ('./routes/psacrificio'), ensureToken);
 app.use(require ('./routes/fierros'), ensureToken);
-app.use(require ('./routes/PERSONAS'), ensureToken);
+app.use(require ('./routes/personas'), ensureToken);
 app.use(require ('./routes/seguridad'), ensureToken);
-app.use(require ('./routes/Cventa'), ensureToken);
-app.use(require ('./routes/PTRASLADO'), ensureToken);
+app.use(require ('./routes/cventa'), ensureToken);
+app.use(require ('./routes/ptraslado'), ensureToken);
