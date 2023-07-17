@@ -185,9 +185,10 @@ mysqlConnection.query(query , [
 });
 
 //PUT
-router.put('/PERSONAS/ACTUALIZAR/:COD_PERSONA' , (req , res )=>{
+router.put('/PERSONAS/ACTUALIZAR/' , (req , res )=>{
   const {
       TABLA_NOMBRE,
+      COD_PERSONA,
       DNI_PERSONA,
       NOM_PERSONA,
       GEN_PERSONA,
@@ -207,7 +208,8 @@ router.put('/PERSONAS/ACTUALIZAR/:COD_PERSONA' , (req , res )=>{
       OPE_TELEFONO,
       IND_TELEFONO
   } =req.body;
-  const {COD_PERSONA} = req.params;
+  console.log(req.body)
+  //const {COD_PERSONA} = req.params;
   const query =`
 
   CALL SP_MOD_PERSONA(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
