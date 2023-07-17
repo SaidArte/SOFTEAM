@@ -1,7 +1,7 @@
 // constantes requerida en nuestro carpeta 
 
 const express = require('express');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const app = express();
 
 app.get('/', (req, res) => {
@@ -56,9 +56,9 @@ app.use(express.json());
 
 //Routes
  
-app.use(require ('./routes/psacrificio'));
-app.use(require ('./routes/fierros'));
-app.use(require ('./routes/PERSONAS'));
-app.use(require ('./routes/seguridad'));
-app.use(require ('./routes/Cventa'));
-app.use(require ('./routes/PTRASLADO'));
+app.use(require ('./routes/psacrificio'), ensureToken);
+app.use(require ('./routes/fierros'), ensureToken);
+app.use(require ('./routes/PERSONAS'), ensureToken);
+app.use(require ('./routes/seguridad'), ensureToken);
+app.use(require ('./routes/Cventa'), ensureToken);
+app.use(require ('./routes/PTRASLADO'), ensureToken);

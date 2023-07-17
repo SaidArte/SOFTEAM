@@ -67,7 +67,7 @@ router.get('/PSACRIFICIO/GETONE/:COD_PSACRIFICIO',(req, res) =>{
             }else{
             console.log(err);
             }
-        });
+      });
 });
 
 //PUT
