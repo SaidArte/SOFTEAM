@@ -115,7 +115,6 @@ router.post('/CVENTA/INSERTAR' , (req , res )=>{
 router.put('/CVENTA/ACTUALIZAR' , (req , res)=>{
   const {  
       TABLA_NOMBRE,
-     
       COD_CVENTA ,
       COD_VENDEDOR ,
       COD_COMPRADOR,
@@ -157,6 +156,7 @@ router.put('/CVENTA/ACTUALIZAR' , (req , res)=>{
     }
    });
 });
+
 
 
 
