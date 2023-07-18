@@ -4,8 +4,9 @@ const router = express.Router();
 
 const mysqlConnection= require('../database');
 
-//SELECT ALL
+//METODO SELECT ALL (OBTIENE TODOS LOS DATOS DE LA TABLA A LA QUE QUEREMOS CONSULTAR).
 router.get('/PERSONAS/GETALL' , (req , res )=>{
+    //LISTA DE LOS PARAMETROS QUE CONTIENE EL PROCEDIMIENTO ALMACENADO.
     const {
         TABLA_NOMBRE,
         COD_PERSONA,
@@ -29,6 +30,10 @@ router.get('/PERSONAS/GETALL' , (req , res )=>{
         IND_TELEFONO
     } =req.body;
     console.log(req.body)
+    /*
+    LLAMADO AL PROCEDIMIENTO ALMACENADO POR MEDIO DE UN CALL Y SUSTITULLENDO CADA
+    PARAMETRO POR UN SIGNO DE INTERROGACIÓN (?).
+    */
     const query =`
 
     CALL SP_MOD_PERSONA(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
@@ -55,6 +60,7 @@ router.get('/PERSONAS/GETALL' , (req , res )=>{
     DES_TELEFONO,
     OPE_TELEFONO,
     IND_TELEFONO
+    //EL SIGUIENTE CÓDIGO SIRVE POR SI LLEGA A VER ALGUN ERROR.
  ] , (err , rows , fields) =>{
     if(!err){
       res.json(rows);
@@ -64,8 +70,9 @@ router.get('/PERSONAS/GETALL' , (req , res )=>{
  });
 });
 
-//POST
+// METODO POST (INSERTAR DATOS AL PROCEDIMIENTO ALMACENADO).
 router.post('/PERSONAS/INSERTAR' , (req , res )=>{
+    //LISTA DE LOS PARAMETROS QUE CONTIENE EL PROCEDIMIENTO ALMACENADO.
     const {
         TABLA_NOMBRE,
         COD_PERSONA,
@@ -89,6 +96,10 @@ router.post('/PERSONAS/INSERTAR' , (req , res )=>{
         IND_TELEFONO
     } =req.body;
     console.log(req.body)
+    /*
+    LLAMADO AL PROCEDIMIENTO ALMACENADO POR MEDIO DE UN CALL Y SUSTITULLENDO CADA
+    PARAMETRO POR UN SIGNO DE INTERROGACIÓN (?).
+    */
     const query =`
 
     CALL SP_MOD_PERSONA(?,'I',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
@@ -115,6 +126,10 @@ router.post('/PERSONAS/INSERTAR' , (req , res )=>{
     DES_TELEFONO,
     OPE_TELEFONO,
     IND_TELEFONO
+    /*
+    MOSTRAR MENSAJE SI EL PROCEDIMIENTO FUE REALIZADO CORRECTAMENTE
+    Ó TUVO ALGUN ERROR EN EL PROCESO.
+    */
  ] , (err , rows , fields) =>{
     if(!err){
         res.json({status: 'Persona registrada'})
@@ -124,8 +139,9 @@ router.post('/PERSONAS/INSERTAR' , (req , res )=>{
  });
 });
 
-//SELECT ONE
+// METODO SELECT ONE (OBTENER LOS DATOS DE UN REGISTRO DE LA TABLA SELECCIONADA)
 router.get('/PERSONAS/GETONE/' , (req , res )=>{
+  //LISTA DE LOS PARAMETROS QUE CONTIENE EL PROCEDIMIENTO ALMACENADO.
   const {
       TABLA_NOMBRE,
       COD_PERSONA,
@@ -149,6 +165,10 @@ router.get('/PERSONAS/GETONE/' , (req , res )=>{
       IND_TELEFONO
   } =req.body;
   console.log(req.body)
+  /*
+    LLAMADO AL PROCEDIMIENTO ALMACENADO POR MEDIO DE UN CALL Y SUSTITULLENDO CADA
+    PARAMETRO POR UN SIGNO DE INTERROGACIÓN (?).
+  */
   const query =`
 
   CALL SP_MOD_PERSONA(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
@@ -175,7 +195,8 @@ mysqlConnection.query(query , [
   DES_TELEFONO,
   OPE_TELEFONO,
   IND_TELEFONO
-] , (err , rows , fields) =>{
+  //EL SIGUIENTE CÓDIGO SIRVE POR SI LLEGA A VER ALGUN ERROR.
+  ] , (err , rows , fields) =>{
   if(!err){
     res.json(rows);
   }else{
@@ -184,8 +205,9 @@ mysqlConnection.query(query , [
 });
 });
 
-//PUT
+//METODO PUT (ACTUALIZAR LOS DATOS DE LA TABLA SELECCIONADA).
 router.put('/PERSONAS/ACTUALIZAR/' , (req , res )=>{
+  //LISTA DE LOS PARAMETROS QUE CONTIENE EL PROCEDIMIENTO ALMACENADO.
   const {
       TABLA_NOMBRE,
       COD_PERSONA,
@@ -209,7 +231,10 @@ router.put('/PERSONAS/ACTUALIZAR/' , (req , res )=>{
       IND_TELEFONO
   } =req.body;
   console.log(req.body)
-  //const {COD_PERSONA} = req.params;
+  /*
+    LLAMADO AL PROCEDIMIENTO ALMACENADO POR MEDIO DE UN CALL Y SUSTITULLENDO CADA
+    PARAMETRO POR UN SIGNO DE INTERROGACIÓN (?).
+  */
   const query =`
 
   CALL SP_MOD_PERSONA(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
@@ -236,7 +261,11 @@ mysqlConnection.query(query , [
   DES_TELEFONO,
   OPE_TELEFONO,
   IND_TELEFONO
-] , (err , rows , fields) =>{
+  /*
+    MOSTRAR MENSAJE SI EL PROCEDIMIENTO FUE REALIZADO CORRECTAMENTE
+    Ó TUVO ALGUN ERROR EN EL PROCESO.
+    */
+  ] , (err , rows , fields) =>{
   if(!err){
       res.json({status: 'Datos Actualizados'})
   }else{
