@@ -13,9 +13,9 @@ const mysqlConnection = mysql.createConnection({
 
 mysqlConnection.connect( function (err){
      if(!err){
-        console.log('conexion exitosa en el puerto 3000');
+        console.log('¡Conexión exitosa en el puerto 3000!');
      }else{
-        console.log('BD no conectada');
+        console.log('No se ha podido establecer conexión con la base de datos.');
      }
 
 });

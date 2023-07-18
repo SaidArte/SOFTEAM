@@ -38,7 +38,7 @@ router.get('/SEGURIDAD/GETALL' , (req , res )=>{
         MON_MANTENIMIENTO
     } =req.body;
     console.log(req.body)
-    const query =`CALL SP_MOD_SEGURIDAD(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
+    const query =`CALL SP_MOD_SEGURIDAD(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`; //Llamado al procedimiento almacenado del modulo de seguridad.
     mysqlConnection.query(query , [
         TABLA_NOMBRE,
         COD_ROL,
@@ -226,7 +226,7 @@ router.get('/SEGURIDAD/GETONE/' , (req , res )=>{
 });
 });
 
-//PUT
+//PUT O UPDATE
 router.put('/SEGURIDAD/ACTUALIZAR/' , (req , res)=>{
     const {
         TABLA_NOMBRE,
@@ -300,7 +300,7 @@ router.put('/SEGURIDAD/ACTUALIZAR/' , (req , res)=>{
      });
   });
 
-  //PUT PASSWORD
+  //PUT PARA CAMBIO DE PASSWORD
 router.put('/SEGURIDAD/ACTUALIZAR-PASS/' , (req , res)=>{
     const {
         COD_ROL,
