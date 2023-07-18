@@ -3,10 +3,11 @@ const express = require  ('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
+//nivel de ubicacion de la conexion
 const mysqlConnection= require('../database');
 
 
-//SELECT ALL
+//Metodo de Consulta General (SELECT ALL) ,Consulta de todo los datos insertados tanto de la tabla Animales y Expediente_cventa.
 router.get('/CVENTA/GETALL' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
@@ -62,7 +63,7 @@ router.get('/CVENTA/GETALL' , (req , res )=>{
 
 
 
-//POST
+//Metodo de Insertar Datos(POST), nos permite insertar un nuevo dato elegiendo una tablas como ser la de Animal o Expediente_cventa 
 router.post('/CVENTA/INSERTAR' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
@@ -124,7 +125,7 @@ router.post('/CVENTA/INSERTAR' , (req , res )=>{
 });
 
 
-//PUT
+//Metodo de Actualizar (PUT), nos permite cambiar o modificar algun parametro si es necesario en las tablas Animal o Expediente_cventa 
 router.put('/CVENTA/ACTUALIZAR' , (req , res)=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
@@ -179,7 +180,7 @@ router.put('/CVENTA/ACTUALIZAR' , (req , res)=>{
 
 
 
-  //SELECT ONE
+  //Metodo de Consulta (SELECT ONE), este metodo nos permite llamar a un solo dato atraves del codigo perteneciente del dato de cualquier tabla de Animal o Expediecventa_.
 router.get('/CVENTA/GETONE' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
