@@ -1,4 +1,4 @@
-// constantes requerida en nuestro carpeta routes para datos activo
+// constantes requerida en nuestro carpeta routes para datos del Modulo Seguridad
 const express = require  ('express');
 const router = express.Router();
 

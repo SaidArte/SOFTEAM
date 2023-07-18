@@ -1,11 +1,11 @@
-// constantes requerida en nuestro carpeta routes para datos activo
+// constantes requerida en nuestro carpeta routes para el modulo de Permisos Traslado
 const express = require  ('express');
 const router = express.Router();
 
 const mysqlConnection= require('../database');
 //METODO SELECT ALL (OBTENER TODOS LOS DATOS DE UNA TABLA)
 router.get('/PTRASLADO/GETALL' , (req , res )=>{
-  // Lista de parametros que contiene el Procediemiento Almacenado
+  // Lista de parametros que contiene el Procedimiento Almacenado
     const {
         TABLA_NOMBRE,
         COD_PTRASLADO,
@@ -27,7 +27,7 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
         CAN_GANADO
     } =req.body;
     console.log(req.body)
-    /*Esta parte del cogigo es la que hace el llamado al Procediemiento Almacenado,
+    /*Esta parte del codigo es la que hace el llamado al Procedimiento Almacenado,
     cada signo de interrogacion (?) representa cada uno de los parametros
     */
     const query =`
@@ -54,7 +54,7 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
         COD_DTRASLADO,
         COD_FIERRO,
         CAN_GANADO
-        /*Esta parte de código es la que sirve ya sea para mostrar algun eror 
+        /*Esta parte de código es la que sirve ya sea para mostrar algun error 
         o mostrar las filas o datos que estamos queriendo operar.*/
  ] , (err , rows , fields) =>{
     if(!err){

@@ -1,10 +1,10 @@
-// constantes requerida en nuestro carpeta routes para datos activo
+// constantes requerida en nuestro carpeta routes para datos del modulo Permisos Sacrificios
 const express = require  ('express');
 const router = express.Router();
 
 const mysqlConnection= require('../database');
 
-//SELECT ALL
+//SELECT ALL: Aqui llamaremos a la tabla con todos los registros de la Base de Datos
 router.get('/PSACRIFICIO/GETALL' , (req , res ) =>{
     mysqlConnection.query('SELECT * FROM PERMISOS_SACRIFICIO' , ( err, rows , fields ) =>{
       if(!err){
@@ -16,9 +16,9 @@ router.get('/PSACRIFICIO/GETALL' , (req , res ) =>{
     });
 });
 
-//POST
+//POST: Insertaremos nuevos registros en la tabla
 router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
-    const {
+    const { //Llamaremos a todas las variables del Procedimiento Almacenado PSacrificio
         TABLA_NOMBRE,
         TIPO_OPERACION,
         COD_PSACRIFICIO,
@@ -31,6 +31,7 @@ router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
         DIR_PSACRIFICIO
         } =req.body;
     console.log(req.body)
+    //Aqui llamamos a los parametros del procedmiento 
     const query =`
 
       CALL SP_MOD_PERMISOS_SACRIFICIO(?,?,?,?,?,?,?,?,?,?);
@@ -47,6 +48,7 @@ router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
         FEC_SACRIFICIO,
         COD_ANIMAL,
         DIR_PSACRIFICIO
+        //Aqui mostramos un mensaje si el procedimiento fue realizado correctamento o muestra un mensaje de error
         ] , (err , rows , fields) =>{
         if(!err){
            res.json({Status: 'Permiso de Sacrificio Registrado'});
@@ -57,7 +59,7 @@ router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
   });
 });
 
-//SELECT ONE
+//SELECT ONE: Seleccionamos un registro en especifico mediante nuestra llave primaria
 router.get('/PSACRIFICIO/GETONE/:COD_PSACRIFICIO',(req, res) =>{
     const { COD_PSACRIFICIO } = req.params;
      mysqlConnection.query('SELECT * FROM PERMISOS_SACRIFICIO WHERE COD_PSACRIFICIO = ?', [COD_PSACRIFICIO], (err, 
@@ -70,7 +72,7 @@ router.get('/PSACRIFICIO/GETONE/:COD_PSACRIFICIO',(req, res) =>{
       });
 });
 
-//PUT
+//PUT: Actualizamos cualquier registro llamando al COD_PSACRIFICIO
 router.put('/PSACRIFICIO/ACTUALIZAR/:COD_PSACRIFICIO' , (req , res)=>{
     const {  
         TABLA_NOMBRE,
