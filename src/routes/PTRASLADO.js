@@ -3,8 +3,9 @@ const express = require  ('express');
 const router = express.Router();
 
 const mysqlConnection= require('../database');
-//SELECT ALL
+//METODO SELECT ALL (OBTENER TODOS LOS DATOS DE UNA TABLA)
 router.get('/PTRASLADO/GETALL' , (req , res )=>{
+  // Lista de parametros que contiene el Procediemiento Almacenado
     const {
         TABLA_NOMBRE,
         COD_PTRASLADO,
@@ -26,6 +27,9 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
         CAN_GANADO
     } =req.body;
     console.log(req.body)
+    /*Esta parte del cogigo es la que hace el llamado al Procediemiento Almacenado,
+    cada signo de interrogacion (?) representa cada uno de los parametros
+    */
     const query =`
 
     CALL SP_MOD_PERMISOS_TRASLADO(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
@@ -50,6 +54,8 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
         COD_DTRASLADO,
         COD_FIERRO,
         CAN_GANADO
+        /*Esta parte de código es la que sirve ya sea para mostrar algun eror 
+        o mostrar las filas o datos que estamos queriendo operar.*/
  ] , (err , rows , fields) =>{
     if(!err){
       res.json(rows);
@@ -58,7 +64,7 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
     }
  });
 });
-//POST
+//METODO POST(INSERTAR)
 router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
     const {
         TABLA_NOMBRE,
@@ -115,7 +121,7 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
 });
 
 
-//PUT
+//METODO PUT (ACTUALIZAR)
 router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
     const {
         TABLA_NOMBRE,
@@ -169,7 +175,7 @@ router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
      });
   });
 
-//SELECT ONE
+//METODO SELECT ONE (OBTENER LOS DATOS DE UN REGISTRO DE UNA TABLA)
 router.get('/PTRASLADO/GETONE/' , (req , res )=>{
   const {
         TABLA_NOMBRE,
