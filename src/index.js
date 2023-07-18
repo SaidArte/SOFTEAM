@@ -71,21 +71,23 @@ function ensureToken (req, res, next) {
     }
 };
 
-//conexion puerto
+// middleware.
+
+app.use(express.json());
+
+app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
+
+//Routes.
+
+app.use(require ('./routes/psacrificio'));
+app.use(require ('./routes/seguridad'));
+app.use(require ('./routes/fierros'));
+app.use(require ('./routes/personas'));
+app.use(require ('./routes/cventa'));
+app.use(require ('./routes/ptraslado'));
+
+//conexion puerto.
 
 app.listen(3000, () =>{
     console.log('Server on port 3000');
 });
-
-// middleware
-
-app.use(express.json());
-
-//Routes
- 
-app.use(require ('./routes/psacrificio'), ensureToken);
-app.use(require ('./routes/fierros'), ensureToken);
-app.use(require ('./routes/personas'), ensureToken);
-app.use(require ('./routes/seguridad'), ensureToken);
-app.use(require ('./routes/cventa'), ensureToken);
-app.use(require ('./routes/ptraslado'), ensureToken);

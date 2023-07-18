@@ -1,35 +1,18 @@
 // constantes requerida en nuestro carpeta routes para datos carta de venta
 const express = require  ('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
 
 //SELECT ALL
 router.get('/CVENTA/GETALL' , (req , res )=>{
-  const {
-    TABLA_NOMBRE,
-    COD_CVENTA ,
-    COD_VENDEDOR ,
-    COD_COMPRADOR,
-    COD_ANIMAL ,
-    FOL_CVENTA ,
-    ANT_CVENTA,
-    CLAS_ANIMAL ,
-    RAZ_ANIMAL ,
-    COL_ANIMAL,
-    COD_FIERRO ,
-    VEN_ANIMAL ,
-    HER_ANIMAL ,
-    DET_ANIMAL   
-  } =req.body;
-  console.log(req.body)
-  const query =`
-  CALL SP_MOD_CVENTA(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?);
- 
-
-`;
-mysqlConnection.query(query , [
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+    if (err){
+        res.sendStatus(403);
+    }else {
+      const {
         TABLA_NOMBRE,
         COD_CVENTA ,
         COD_VENDEDOR ,
@@ -43,21 +26,49 @@ mysqlConnection.query(query , [
         COD_FIERRO ,
         VEN_ANIMAL ,
         HER_ANIMAL ,
-        DET_ANIMAL
-] , (err , rows , fields) =>{
-  if(!err){
-    res.json(rows);
-  }else{
-    console.log(err);
-  }
-});
+        DET_ANIMAL   
+      } =req.body;
+      console.log(req.body)
+      const query =`
+      CALL SP_MOD_CVENTA(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?);
+     
+    
+    `;
+    mysqlConnection.query(query , [
+            TABLA_NOMBRE,
+            COD_CVENTA ,
+            COD_VENDEDOR ,
+            COD_COMPRADOR,
+            COD_ANIMAL ,
+            FOL_CVENTA ,
+            ANT_CVENTA,
+            CLAS_ANIMAL ,
+            RAZ_ANIMAL ,
+            COL_ANIMAL,
+            COD_FIERRO ,
+            VEN_ANIMAL ,
+            HER_ANIMAL ,
+            DET_ANIMAL
+      ] , (err , rows , fields) =>{
+        if(!err){
+          res.json(rows);
+        }else{
+          console.log(err);
+        }
+      });
+    }
+  });
 });
 
 
 
 //POST
 router.post('/CVENTA/INSERTAR' , (req , res )=>{
-    const {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+    if (err){
+        res.sendStatus(403);
+    }else {
+      const {
         TABLA_NOMBRE,
         
         COD_CVENTA ,
@@ -107,54 +118,62 @@ router.post('/CVENTA/INSERTAR' , (req , res )=>{
               console.log(err);
           }
 
-   });
+         });
+    }
+  });
 });
 
 
 //PUT
 router.put('/CVENTA/ACTUALIZAR' , (req , res)=>{
-  const {  
-      TABLA_NOMBRE,
-      COD_CVENTA ,
-      COD_VENDEDOR ,
-      COD_COMPRADOR,
-      COD_ANIMAL ,
-      FOL_CVENTA ,
-      ANT_CVENTA,
-      CLAS_ANIMAL ,
-      RAZ_ANIMAL ,
-      COL_ANIMAL,
-      COD_FIERRO ,
-      VEN_ANIMAL ,
-      HER_ANIMAL ,
-      DET_ANIMAL
-  } =req.body;
-  console.log(req.body)
-  const query = `
-  CALL SP_MOD_CVENTA(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?);
-  `;
-  mysqlConnection.query(query , [ 
-      TABLA_NOMBRE,
-      COD_CVENTA ,
-      COD_VENDEDOR ,
-      COD_COMPRADOR,
-      COD_ANIMAL ,
-      FOL_CVENTA ,
-      ANT_CVENTA,
-      CLAS_ANIMAL ,
-      RAZ_ANIMAL ,
-      COL_ANIMAL,
-      COD_FIERRO ,
-      VEN_ANIMAL ,
-      HER_ANIMAL ,
-      DET_ANIMAL
-      ] , (err , rows , fields) =>{
-    if(!err){
-       res.json({Status: 'Datos actualizados'});
-    }else{
-        console.log(err);
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+    if (err){
+        res.sendStatus(403);
+    }else {
+      const {  
+        TABLA_NOMBRE,
+        COD_CVENTA ,
+        COD_VENDEDOR ,
+        COD_COMPRADOR,
+        COD_ANIMAL ,
+        FOL_CVENTA ,
+        ANT_CVENTA,
+        CLAS_ANIMAL ,
+        RAZ_ANIMAL ,
+        COL_ANIMAL,
+        COD_FIERRO ,
+        VEN_ANIMAL ,
+        HER_ANIMAL ,
+        DET_ANIMAL
+    } =req.body;
+    console.log(req.body)
+    const query = `
+    CALL SP_MOD_CVENTA(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?);
+    `;
+    mysqlConnection.query(query , [ 
+        TABLA_NOMBRE,
+        COD_CVENTA ,
+        COD_VENDEDOR ,
+        COD_COMPRADOR,
+        COD_ANIMAL ,
+        FOL_CVENTA ,
+        ANT_CVENTA,
+        CLAS_ANIMAL ,
+        RAZ_ANIMAL ,
+        COL_ANIMAL,
+        COD_FIERRO ,
+        VEN_ANIMAL ,
+        HER_ANIMAL ,
+        DET_ANIMAL
+        ] , (err , rows , fields) =>{
+      if(!err){
+         res.json({Status: 'Datos actualizados'});
+      }else{
+          console.log(err);
+      }
+     });
     }
-   });
+  });
 });
 
 
@@ -162,54 +181,61 @@ router.put('/CVENTA/ACTUALIZAR' , (req , res)=>{
 
   //SELECT ONE
 router.get('/CVENTA/GETONE' , (req , res )=>{
-  const {
-    TABLA_NOMBRE,
-    COD_CVENTA ,
-    COD_VENDEDOR ,
-    COD_COMPRADOR,
-    COD_ANIMAL ,
-    FOL_CVENTA ,
-    ANT_CVENTA,
-    CLAS_ANIMAL ,
-    RAZ_ANIMAL ,
-    COL_ANIMAL,
-    COD_FIERRO ,
-    VEN_ANIMAL ,
-    HER_ANIMAL ,
-    DET_ANIMAL
-
-  } =req.body;
-
-  console.log(req.body)
-  const query =`
-
-  CALL SP_MOD_CVENTA(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-`;
-mysqlConnection.query(query , [
- 
-  TABLA_NOMBRE,
-  COD_CVENTA ,
-  COD_VENDEDOR ,
-  COD_COMPRADOR,
-  COD_ANIMAL ,
-  FOL_CVENTA ,
-  ANT_CVENTA,
-  CLAS_ANIMAL ,
-  RAZ_ANIMAL ,
-  COL_ANIMAL,
-  COD_FIERRO ,
-  VEN_ANIMAL ,
-  HER_ANIMAL ,
-  DET_ANIMAL
-
-] , (err , rows , fields) =>{
-  if(!err){
-    res.json(rows);
-  }else{
-    console.log(err);
-  }
-});
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+    if (err){
+        res.sendStatus(403);
+    }else {
+      const {
+        TABLA_NOMBRE,
+        COD_CVENTA ,
+        COD_VENDEDOR ,
+        COD_COMPRADOR,
+        COD_ANIMAL ,
+        FOL_CVENTA ,
+        ANT_CVENTA,
+        CLAS_ANIMAL ,
+        RAZ_ANIMAL ,
+        COL_ANIMAL,
+        COD_FIERRO ,
+        VEN_ANIMAL ,
+        HER_ANIMAL ,
+        DET_ANIMAL
+    
+      } =req.body;
+    
+      console.log(req.body)
+      const query =`
+    
+      CALL SP_MOD_CVENTA(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?);
+    
+    `;
+    mysqlConnection.query(query , [
+     
+      TABLA_NOMBRE,
+      COD_CVENTA ,
+      COD_VENDEDOR ,
+      COD_COMPRADOR,
+      COD_ANIMAL ,
+      FOL_CVENTA ,
+      ANT_CVENTA,
+      CLAS_ANIMAL ,
+      RAZ_ANIMAL ,
+      COL_ANIMAL,
+      COD_FIERRO ,
+      VEN_ANIMAL ,
+      HER_ANIMAL ,
+      DET_ANIMAL
+    
+      ] , (err , rows , fields) =>{
+        if(!err){
+          res.json(rows);
+        }else{
+          console.log(err);
+        }
+      });
+    }
+  });
+  
 });
 
 
