@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
-//SELECT ALL
+//SELECT ALL: Aqui llamaremos a la tabla con todos los registros de la Base de Datos
 router.get('/FIERROS/GETALL' , (req , res ) =>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
@@ -23,13 +23,13 @@ router.get('/FIERROS/GETALL' , (req , res ) =>{
   });
 });
 
-//POST
+//POST: Insertaremos nuevos registros en la tabla
 router.post('/FIERROS/INSERTAR' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
         res.sendStatus(403);
     }else {
-      const {
+      const { //Llamaremos a todas las variables del Procedimiento Almacenado Fierros
         TABLA_NOMBRE,
         TIPO_OPERACION,
         COD_FIERRO,
@@ -41,6 +41,7 @@ router.post('/FIERROS/INSERTAR' , (req , res )=>{
         MON_CERTIFICO_FIERRO
         } =req.body;
     console.log(req.body)
+    //Aqui llamamos a los parametros del procedmiento 
     const query =`
 
       CALL SP_MOD_FIERRO(?,?,?,?,?,?,?,?,?);
@@ -56,6 +57,7 @@ router.post('/FIERROS/INSERTAR' , (req , res )=>{
          IMG_FIERRO,
          NUM_FOLIO_FIERRO,
          MON_CERTIFICO_FIERRO
+         //Aqui mostramos un mensaje si el procedimiento fue realizado correctamento o muestra un mensaje de error
         ] , (err , rows , fields) =>{
           if(!err){
              res.json({Status: 'Fierros Registrado'});
@@ -68,7 +70,7 @@ router.post('/FIERROS/INSERTAR' , (req , res )=>{
   });
 });
 
-//SELECT ONE
+//SELECT ONE: Seleccionamos un registro en especifico mediante nuestra llave primaria
 router.get('/FIERROS/GETONE/:COD_FIERRO',(req, res) =>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
@@ -87,7 +89,7 @@ router.get('/FIERROS/GETONE/:COD_FIERRO',(req, res) =>{
   });
 });
 
-//PUT
+//PUT: Actualizamos cualquier registro llamando al COD_FIERRO
 router.put('/FIERROS/ACTUALIZAR/:COD_FIERRO' , (req , res)=>{
     jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
       if (err){
