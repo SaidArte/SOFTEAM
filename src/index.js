@@ -75,7 +75,7 @@ function ensureToken (req, res, next) {
 
 app.use(express.json());
 
-app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
+//app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
 
 //Routes.
 
@@ -85,6 +85,7 @@ app.use(require ('./routes/fierros'));
 app.use(require ('./routes/personas'));
 app.use(require ('./routes/cventa'));
 app.use(require ('./routes/ptraslado'));
+
 
 //conexion puerto.
 
