@@ -15,34 +15,6 @@ app.get('/', (req, res) => {
     });
 });
 
-//Ruta para la obtención de un token.
-app.post('/api/login', (req, res) => {
-    const { COD_USUARIO, PAS_USUARIO } = req.body;
-  
-    // Consulta SQL para verificar si las credenciales del usuario son correctas.
-    const query = `SELECT * FROM TBL_MS_USUARIOS WHERE COD_USUARIO = ? AND PAS_USUARIO = ?`;
-    mysqlConnection.query(query, [COD_USUARIO, PAS_USUARIO], (error, results) => {
-      if (error) {
-        res.status(500).json({ error: 'Error interno del servidor' });
-      } else {
-        if (results.length > 0) {
-          // Usuario válido, devuelve los datos del usuario.
-            /*res.json({ message: 'Inicio de sesión exitoso', COD_USUARIO});*/ //Esta instrucción 
-            //se usó para saber si el usuario era autenticado correctamente, como no se pueden 
-            //repetir comandos como "res.json" o "res.send" se comentó este cuando el usuario ya 
-            //podía iniciar sesión.
-            const token = jwt.sign({COD_USUARIO}, 'my_ultrasecret_token'); //Generación de token por medio de una palabra secreta.
-            res.json({ 
-                token
-            });
-            //La anterior instrucción muestra el token del usuario para poder usar las APIs.
-        } else {
-            res.status(401).json({ error: 'Credenciales inválidas' });
-        }
-      }
-    });
-});
-
 //Ruta de prueba para el token, solo muestra el usuario que inició sesión.
 app.get('/api/protected', ensureToken, (req, res) => {
     jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
@@ -79,10 +51,11 @@ app.use(express.json());
 
 //Routes.
 
+app.use(require ('./routes/login'));
 app.use(require ('./routes/psacrificio'));
 app.use(require ('./routes/seguridad'));
 app.use(require ('./routes/fierros'));
-app.use(require ('./routes/personas'));
+app.use(require ('./routes/PERSONAS'));
 app.use(require ('./routes/cventa'));
 app.use(require ('./routes/ptraslado'));
 
