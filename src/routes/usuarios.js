@@ -72,13 +72,11 @@ router.put('/SEGURIDAD/ACTUALIZAR_USUARIOS' , (req , res )=>{
                         FEC_ULTIMO_ACCESO,
                         LIM_INTENTOS,
                         NUM_INTENTOS_FALLIDOS,
-                        FEC_VENCIMIENTO,
-                        PREGUNTA,
-                        RESPUESTA
+                        FEC_VENCIMIENTO
                     } =req.body;
                     console.log(req.body)
                     //const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'S', '1', 'Admins', '1', '1', '40','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'U', '1', '${NOM_ROL}', '1', '${COD_USUARIO}', '1','1','${IND_USUARIO}','${FEC_ULTIMO_CAMBIO}','${FEC_ULTIMO_ACCESO}', '${LIM_INTENTOS}', '${NUM_INTENTOS_FALLIDOS}', '${FEC_VENCIMIENTO}', '1', '${PREGUNTA}', '${RESPUESTA}', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'U', '1', '${NOM_ROL}', '1', '${COD_USUARIO}', '1','1','${IND_USUARIO}','${FEC_ULTIMO_CAMBIO}','${FEC_ULTIMO_ACCESO}', '${LIM_INTENTOS}', '${NUM_INTENTOS_FALLIDOS}', '${FEC_VENCIMIENTO}', '1', '¿Nombre de su primer mascota?', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})
