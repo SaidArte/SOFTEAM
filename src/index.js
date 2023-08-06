@@ -59,6 +59,12 @@ app.use(require ('./routes/PERSONAS'));
 app.use(require ('./routes/cventa'));
 app.use(require ('./routes/ptraslado'));
 app.use(require ('./routes/usuarios'));
+app.use(require ('./routes/roles'));
+app.use(require ('./routes/objetos'));
+app.use(require ('./routes/permisos'));
+app.use(require ('./routes/preguntas'));
+app.use(require ('./routes/respuestas'));
+app.use(require ('./routes/mantenimientos'));
 
 
 //conexion puerto.
