@@ -58,6 +58,7 @@ app.use(require ('./routes/fierros'));
 app.use(require ('./routes/PERSONAS'));
 app.use(require ('./routes/cventa'));
 app.use(require ('./routes/ptraslado'));
+app.use(require ('./routes/usuarios'));
 
 
 //conexion puerto.
