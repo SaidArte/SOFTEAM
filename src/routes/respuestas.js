@@ -46,7 +46,7 @@ router.get('/SEGURIDAD/GETONE_RESPUESTAS' , (req , res )=>{
                     } =req.body;
                     console.log(req.body)
                     //const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'S', '1', 'Admins', '1', '1', '40','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
-                    const query =`SELECT b.PREGUNTA, a.RESPUESTA FROM TBL_MS_PREGUNTAS_USUARIO a,  TBL_MS_PREGUNTAS b WHERE a.COD_PREGUNTA = b.COD_PREGUNTA AND a.COD_USUARIO = ${COD_USUARIO};`;
+                    const query =`SELECT a.COD_USUARIO, b.PREGUNTA, a.RESPUESTA FROM TBL_MS_PREGUNTAS_USUARIO a,  TBL_MS_PREGUNTAS b WHERE a.COD_PREGUNTA = b.COD_PREGUNTA;`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);
