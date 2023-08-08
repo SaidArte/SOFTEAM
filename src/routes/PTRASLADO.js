@@ -4,74 +4,22 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
-//METODO SELECT ALL (OBTENER TODOS LOS DATOS DE UNA TABLA)
 router.get('/PTRASLADO/GETALL' , (req , res )=>{
-  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-    if (err){
-        res.sendStatus(403);
-    }else {
-        // Lista de parametros que contiene el Procedimiento Almacenado
-          const {
-            TABLA_NOMBRE,
-            COD_PTRASLADO,
-            FEC_REG_TRASLADO,
-            FEC_TRASLADO,
-            COD_PERSONA,
-            DIR_ORIG_PTRASLADO,
-            DIR_DEST_TRASLADO,
-            NOM_TRASNPORTISTA,
-            DNI_TRANSPORTISTA,
-            TEL_TRANSPORTISTA,
-            MAR_VEHICULO,
-            MOD_VEHICULO,
-            MAT_VEHICULO,
-            COL_VEHICULO,
-            MON_TRASLADO,
-            COD_DTRASLADO,
-            COD_FIERRO,
-            CAN_GANADO
-        } =req.body;
-        console.log(req.body)
-        /*Esta parte del codigo es la que hace el llamado al Procedimiento Almacenado,
-        cada signo de interrogacion (?) representa cada uno de los parametros
-        */
-        const query =`
-
-        CALL SP_MOD_PERMISOS_TRASLADO(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
-
-      `;
-      mysqlConnection.query(query , [
-            TABLA_NOMBRE,
-            COD_PTRASLADO,
-            FEC_REG_TRASLADO,
-            FEC_TRASLADO,
-            COD_PERSONA,
-            DIR_ORIG_PTRASLADO,
-            DIR_DEST_TRASLADO,
-            NOM_TRASNPORTISTA,
-            DNI_TRANSPORTISTA,
-            TEL_TRANSPORTISTA,
-            MAR_VEHICULO,
-            MOD_VEHICULO,
-            MAT_VEHICULO,
-            COL_VEHICULO,
-            MON_TRASLADO,
-            COD_DTRASLADO,
-            COD_FIERRO,
-            CAN_GANADO
-            /*Esta parte de código es la que sirve ya sea para mostrar algun error 
-            o mostrar las filas o datos que estamos queriendo operar.*/
-      ] , (err , rows , fields) =>{
-        if(!err){
-          res.json(rows);
-        }else{
-          console.log(err);
-        }
-      });
-    }
-  });
+  // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
+      // if (err){
+          // res.sendStatus(403);
+       //}else {
+           const query =`SELECT * FROM PERMISOS_TRASLADO;`; 
+           mysqlConnection.query(query , (err , rows , fields) =>{
+               if(!err){
+               res.json(rows);
+               }else{
+               console.log(err);
+               }
+           });
+      // }
+   //});
 });
-
 //METODO POST(INSERTAR)
 router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
