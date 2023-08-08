@@ -65,7 +65,7 @@ app.use(require ('./routes/permisos'));
 app.use(require ('./routes/preguntas'));
 app.use(require ('./routes/respuestas'));
 app.use(require ('./routes/mantenimientos'));
-app.use(require ('./routes/detalleTraslado'));
+//app.use(require ('./routes/detalletraslado'));
 
 
 //conexion puerto.
