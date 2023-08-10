@@ -14,16 +14,7 @@ router.get('/CVENTA/GETALL' , (req , res )=>{
       // if (err){
           // res.sendStatus(403);
        //}else {
-          const query =` 
-          SELECT a.COD_CVENTA, a.FEC_CVENTA , a.COD_VENDEDOR ,  a.COD_COMPRADOR, b.COD_ANIMAL,
-           a.FOL_CVENTA, a.ANT_CVENTA 
-          FROM EXPEDIENTE_CVENTA a, ANIMALES b 
-          WHERE  a.COD_ANIMAL = b.COD_ANIMAL
-         
-          ORDER BY COD_CVENTA ;
-          `  //Llamado al procedimiento almacenado del modulo de cventa de la tabla expediente_cventa.
-            
-
+           const query =`SELECT * FROM EXPEDIENTE_CVENTA;`; 
            mysqlConnection.query(query , (err , rows , fields) =>{
                if(!err){
                res.json(rows);
@@ -34,6 +25,7 @@ router.get('/CVENTA/GETALL' , (req , res )=>{
       // }
    //});
 });
+
 
 
 
@@ -75,7 +67,40 @@ router.post('/CVENTA/INSERTAR' , (req , res )=>{
   // });
 });
 
-
+router.put('/CVENTA/ACTUALIZAR/:COD_CVENTA' , (req , res )=>{
+  //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+    //if (err){
+        //res.sendStatus(403);
+    //}else {
+        
+        try {
+          const {
+                 //COD_CVENTA ,
+                 COD_VENDEDOR ,
+                 COD_COMPRADOR,
+                 COD_ANIMAL ,
+                 FOL_CVENTA ,
+                 ANT_CVENTA,
+         
+              } =req.body;
+               const { COD_CVENTA } = req.params;
+              console.log(req.body)
+              const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','U','${COD_CVENTA}','${COD_VENDEDOR}','${COD_COMPRADOR}','${COD_ANIMAL}','${FOL_CVENTA}','${ANT_CVENTA}','VACA','HEREFORD','BLANCO',6,'S','N','ninguno');`;
+              mysqlConnection.query(query, (err, result) => {
+                if (!err) {
+                  res.json({ Status: 'Datos actualizados' });
+                } else {
+                  console.log(err);
+                  res.status(500).json({ error: 'Error al actualizar los datos' });
+                }
+              });
+      } catch (error) {
+          console.log(error);
+          res.status(400).json({ error: 'Datos inválidos'});
+      }
+    //}
+  //});
+});
 
 
 
