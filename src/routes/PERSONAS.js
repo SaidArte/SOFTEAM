@@ -15,9 +15,9 @@ router.get('/PERSONAS/GETALL' , (req , res )=>{
       LLAMADO AL PROCEDIMIENTO ALMACENADO POR MEDIO DE UN CALL Y SUSTITULLENDO CADA
       PARAMETRO POR UN SIGNO DE INTERROGACIÓN (?).
       */
-      const query =`SELECT a.COD_PERSONA, a.DNI_PERSONA, a.NOM_PERSONA, a.GEN_PERSONA, a.FEC_NAC_PERSONA, a.IMG_PERSONA,
+      const query =`SELECT a.COD_PERSONA, a.DNI_PERSONA, a.NOM_PERSONA, a.GEN_PERSONA, a.FEC_NAC_PERSONA, a.IMG_PERSONA, a.ESTADO,
       b.COD_DIRECCION, b.DES_DIRECCION, b.TIP_DIRECCION, c.COD_EMAIL, c.DIR_EMAIL,
-      d.COD_TELEFONO, d.NUM_TELEFONO, d.TIP_TELEFONO, d.DES_TELEFONO, d.OPE_TELEFONO, d.IND_TELEFONO 
+      d.COD_TELEFONO, d.NUM_TELEFONO, d.TIP_TELEFONO, d.DES_TELEFONO, d.OPE_TELEFONO, d.IND_TELEFONO
       FROM PERSONAS a
       LEFT JOIN DIRECCIONES b ON a.COD_PERSONA = b.COD_PERSONA
       LEFT JOIN EMAILS c ON a.COD_PERSONA = c.COD_PERSONA
@@ -53,8 +53,7 @@ router.post('/PERSONAS/INSERTAR' , (req , res )=>{
                 TIP_TELEFONO,
                 DES_TELEFONO,
                 OPE_TELEFONO,
-                IND_TELEFONO
-                
+                IND_TELEFONO             
                   } =req.body;
                   console.log(req.body)
                   //const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'S', '1', 'Admins', '1', '1', '40','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
@@ -166,11 +165,11 @@ router.put('/PERSONAS/ACTUALIZAR/:COD_PERSONA' , (req , res )=>{
           TIP_TELEFONO,
           DES_TELEFONO,
           OPE_TELEFONO,
-          IND_TELEFONO
+          IND_TELEFONO,
               } =req.body;
               const { COD_PERSONA } = req.params;
               console.log(req.body)
-              const query =`CALL SP_MOD_PERSONA('PERSONAS', 'U', '${COD_PERSONA}', '${DNI_PERSONA}', '${NOM_PERSONA}', '${GEN_PERSONA}','${FEC_NAC_PERSONA}','${IMG_PERSONA}','${COD_DIRECCION}', '${DES_DIRECCION}', '${TIP_DIRECCION}', '${COD_EMAIL}', '${DIR_EMAIL}', '${COD_TELEFONO}', '${NUM_TELEFONO}', '${TIP_TELEFONO}', '${DES_TELEFONO}', '${OPE_TELEFONO}', '${IND_TELEFONO}');`;
+              const query =`CALL SP_MOD_PERSONA('PERSONAS', 'U', '${COD_PERSONA}', '${DNI_PERSONA}', '${NOM_PERSONA}', '${GEN_PERSONA}','${FEC_NAC_PERSONA}','${IMG_PERSONA}','${COD_DIRECCION}', '${DES_DIRECCION}', '${TIP_DIRECCION}', '${COD_EMAIL}', '${DIR_EMAIL}','${COD_TELEFONO}', '${NUM_TELEFONO}', '${TIP_TELEFONO}', '${DES_TELEFONO}', '${OPE_TELEFONO}', '${IND_TELEFONO}');`;
               mysqlConnection.query(query, (err, result) => {
                 if (!err) {
                   res.json({ Status: 'Datos actualizados' });
@@ -186,6 +185,26 @@ router.put('/PERSONAS/ACTUALIZAR/:COD_PERSONA' , (req , res )=>{
     //}
   //});
 });
+
+router.delete('/PERSONAS/ELIMINAR/:COD_PERSONA', (req, res) => {
+  try {
+    const {COD_PERSONA} = req.params;
+    const query = `CALL SP_MOD_PERSONA('PERSONAS', 'U', '${COD_PERSONA}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);`;
+
+    mysqlConnection.query(query, (err, result) => {
+      if (!err) {
+        res.json({ Status: 'Persona eliminada lógicamente' });
+      } else {
+        console.log(err);
+        res.status(500).json({ error: 'Error al eliminar la persona' });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: 'Datos inválidos' });
+  }
+});
+
 
 
 
