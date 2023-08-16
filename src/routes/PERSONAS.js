@@ -186,26 +186,5 @@ router.put('/PERSONAS/ACTUALIZAR/:COD_PERSONA' , (req , res )=>{
   //});
 });
 
-router.delete('/PERSONAS/ELIMINAR/:COD_PERSONA', (req, res) => {
-  try {
-    const {COD_PERSONA} = req.params;
-    const query = `CALL SP_MOD_PERSONA('PERSONAS', 'U', '${COD_PERSONA}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);`;
-
-    mysqlConnection.query(query, (err, result) => {
-      if (!err) {
-        res.json({ Status: 'Persona eliminada lógicamente' });
-      } else {
-        console.log(err);
-        res.status(500).json({ error: 'Error al eliminar la persona' });
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ error: 'Datos inválidos' });
-  }
-});
-
-
-
 
 module.exports = router;
