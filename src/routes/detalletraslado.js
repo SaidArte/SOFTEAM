@@ -107,3 +107,4 @@ router.get('/DETALLETRASLADO/GET_ONE' , (req , res )=>{
     // });
 });
 
+module.exports = router;

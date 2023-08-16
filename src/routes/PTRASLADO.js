@@ -1,7 +1,7 @@
 // constantes requerida en nuestro carpeta routes para el modulo de Permisos Traslado
 const express = require  ('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 router.get('/PTRASLADO/GETALL' , (req , res )=>{
@@ -22,19 +22,16 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
 });
 //METODO POST(INSERTAR)
 router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
-  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-    if (err){
-        res.sendStatus(403);
-    }else {
-      const {
-              TABLA_NOMBRE,
-              COD_PTRASLADO,
-              FEC_REG_TRASLADO,
+  //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+   // if (err){
+       // res.sendStatus(403);
+    //}else {
+      const {             
               FEC_TRASLADO,
               COD_PERSONA,
               DIR_ORIG_PTRASLADO,
               DIR_DEST_TRASLADO,
-              NOM_TRASNPORTISTA,
+              NOM_TRANSPORTISTA,
               DNI_TRANSPORTISTA,
               TEL_TRANSPORTISTA,
               MAR_VEHICULO,
@@ -42,25 +39,22 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
               MAT_VEHICULO,
               COL_VEHICULO,
               MON_TRASLADO,
-              COD_DTRASLADO,
               COD_FIERRO,
-              CAN_GANADO
+              CAN_GANADO,             
+              
           } =req.body;
           console.log(req.body)
           const query =`
 
-          CALL SP_MOD_PERMISOS_TRASLADO(?,'I',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+          CALL SP_MOD_PERMISOS_TRASLADO('PERMISOS_TRASLADO','I',0,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?);
       
       `;
       mysqlConnection.query(query , [
-              TABLA_NOMBRE,
-              COD_PTRASLADO,
-              FEC_REG_TRASLADO,
               FEC_TRASLADO,
               COD_PERSONA,
               DIR_ORIG_PTRASLADO,
               DIR_DEST_TRASLADO,
-              NOM_TRASNPORTISTA,
+              NOM_TRANSPORTISTA,
               DNI_TRANSPORTISTA,
               TEL_TRANSPORTISTA,
               MAR_VEHICULO,
@@ -68,7 +62,6 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
               MAT_VEHICULO,
               COL_VEHICULO,
               MON_TRASLADO,
-              COD_DTRASLADO,
               COD_FIERRO,
               CAN_GANADO
       ] , (err , rows , fields) =>{
@@ -78,8 +71,8 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
               console.log(err);
           }
       });
-    }
-  });
+    //}
+  //});
 });
 
 
@@ -111,7 +104,7 @@ router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
           
       } =req.body;
       console.log(req.body)
-      const query =`CALL SP_MOD_PERMISOS_TRASLADO(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
+      const query =`CALL SP_MOD_PERMISOS_TRASLADO(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
       mysqlConnection.query(query , [
           TABLA_NOMBRE,
           COD_PTRASLADO,
@@ -172,7 +165,7 @@ router.get('/PTRASLADO/GETONE/' , (req , res )=>{
         console.log(req.body)
         const query =`
 
-      CALL SP_MOD_PERMISOS_TRASLADO(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+      CALL SP_MOD_PERMISOS_TRASLADO(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
       `;
       mysqlConnection.query(query , [
