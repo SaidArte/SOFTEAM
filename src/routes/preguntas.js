@@ -106,4 +106,31 @@ router.get('/SEGURIDAD/GETONE_PREGUNTAS' , (req , res )=>{
     // });
 });
 
+router.post('/SEGURIDAD/GETONE_PREGUNTA_USUARIOS' , (req , res )=>{
+    // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+         //if (err){
+             //res.sendStatus(403);
+        // }else {
+            try {
+                    const {
+                        NOM_USUARIO
+                    } =req.body;
+                    console.log(req.body)
+                    //const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'S', '1', 'Admins', '1', '1', '40','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`SELECT b.PREGUNTA FROM TBL_MS_PREGUNTAS_USUARIO a,  TBL_MS_PREGUNTAS b , TBL_MS_USUARIOS c WHERE a.COD_PREGUNTA = b.COD_PREGUNTA AND a.COD_USUARIO = c.COD_USUARIO AND c.NOM_USUARIO = '${NOM_USUARIO}';`;
+                    mysqlConnection.query(query , (err , rows , fields) =>{
+                    if(!err){
+                    res.json(rows);
+                    }else{
+                    console.log(err);
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+                res.status(400).json({ error: 'Datos inválidos'});
+            }
+        // }
+    // });
+});
+
 module.exports = router;
