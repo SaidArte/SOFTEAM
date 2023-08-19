@@ -34,7 +34,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_RESPUESTAS' , (req , res )=>{
 });
 
 
-/*router.post('/SEGURIDAD/GETONE_RESPUESTAS' , (req , res )=>{
+router.post('/SEGURIDAD/GETONE_RESPUESTAS' , (req , res )=>{
     // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          //if (err){
              //res.sendStatus(403);
@@ -59,6 +59,6 @@ router.put('/SEGURIDAD/ACTUALIZAR_RESPUESTAS' , (req , res )=>{
             }
         // }
     // });
-});*/
+});
 
 module.exports = router;
