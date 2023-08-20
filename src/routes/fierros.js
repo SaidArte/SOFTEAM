@@ -107,9 +107,7 @@ router.put('/FIERROS/ACTUALIZAR/:COD_FIERRO', (req, res) => {
     } = req.body;
     const { COD_FIERRO } = req.params;
     const query = `
-      CALL SP_MOD_FIERRO('FIERROS','U',
-         '${COD_FIERRO}', '${FEC_TRAMITE_FIERRO}', '${COD_PERSONA}', '${TIP_FIERRO}', '${IMG_FIERRO}', '${NUM_FOLIO_FIERRO}', '${MON_CERTIFICO_FIERRO}')
-    `;
+      CALL SP_MOD_FIERRO('FIERROS','U','${COD_FIERRO}', '${FEC_TRAMITE_FIERRO}','1', '${TIP_FIERRO}', '${IMG_FIERRO}', '${NUM_FOLIO_FIERRO}', '${MON_CERTIFICO_FIERRO}')`;
     mysqlConnection.query(query, (err, result) => {
       if (!err) {
         res.json({ Status: 'Datos actualizados' });
