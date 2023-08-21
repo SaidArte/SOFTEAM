@@ -113,4 +113,32 @@ router.get('/SEGURIDAD/GETONE_PERMISOS' , (req , res )=>{
     // });
 });
 
+router.post('/SEGURIDAD/GETONE_SOLOPERMISOS' , (req , res )=>{
+    // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+         //if (err){
+             //res.sendStatus(403);
+        // }else {
+            try {
+                const {
+                    NOM_ROL,
+                    OBJETO
+                    } =req.body;
+                    console.log(req.body)
+                    //const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'S', '1', 'Admins', '1', '1', '40','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`SELECT a.PRM_INSERTAR, a.PRM_ACTUALIZAR, a.PRM_CONSULTAR FROM TBL_PERMISOS a,  TBL_MS_ROLES b, TBL_OBJETOS c WHERE a.COD_ROL = b.COD_ROL AND a.COD_OBJETO = c.COD_OBJETO AND b.NOM_ROL = '${NOM_ROL}' AND c.OBJETO = '${OBJETO}';`;
+                    mysqlConnection.query(query , (err , rows , fields) =>{
+                    if(!err){
+                    res.json(rows);
+                    }else{
+                    console.log(err);
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+                res.status(400).json({ error: 'Datos inválidos'});
+            }
+        // }
+    // });
+});
+
 module.exports = router;
