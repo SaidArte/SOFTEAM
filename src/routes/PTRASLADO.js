@@ -78,52 +78,45 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
 
 //METODO PUT (ACTUALIZAR)
 router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
-  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-    if (err){
-        res.sendStatus(403);
-    }else {
+ // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+   // if (err){
+    //    res.sendStatus(403);
+    //}else {
       const {
-          TABLA_NOMBRE,
           COD_PTRASLADO,
-          FEC_REG_TRASLADO,
           FEC_TRASLADO,
           COD_PERSONA,
           DIR_ORIG_PTRASLADO,
           DIR_DEST_TRASLADO,
-          NOM_TRASNPORTISTA,
+          NOM_TRANSPORTISTA,
           DNI_TRANSPORTISTA,
           TEL_TRANSPORTISTA,
           MAR_VEHICULO,
           MOD_VEHICULO,
           MAT_VEHICULO,
           COL_VEHICULO,
-          MON_TRASLADO,
-          COD_DTRASLADO,
-          COD_FIERRO,
-          CAN_GANADO
+          MON_TRASLADO
+          
           
       } =req.body;
       console.log(req.body)
-      const query =`CALL SP_MOD_PERMISOS_TRASLADO(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
+      const query =`CALL SP_MOD_PERMISOS_TRASLADO('PERMISOS_TRASLADO','U',?,?,?,?,?,?,?,?,?,?,?,?,?,0,0,0);`;
       mysqlConnection.query(query , [
-          TABLA_NOMBRE,
+
           COD_PTRASLADO,
-          FEC_REG_TRASLADO,
           FEC_TRASLADO,
           COD_PERSONA,
           DIR_ORIG_PTRASLADO,
           DIR_DEST_TRASLADO,
-          NOM_TRASNPORTISTA,
+          NOM_TRANSPORTISTA,
           DNI_TRANSPORTISTA,
           TEL_TRANSPORTISTA,
           MAR_VEHICULO,
           MOD_VEHICULO,
           MAT_VEHICULO,
           COL_VEHICULO,
-          MON_TRASLADO,
-          COD_DTRASLADO,
-          COD_FIERRO,
-          CAN_GANADO
+          MON_TRASLADO
+          
           
           ] , (err , rows , fields) =>{
         if(!err){
@@ -132,8 +125,8 @@ router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
             console.log(err);
         }
       });
-    }
-  });
+    //}
+  //});
 });
 
 //METODO SELECT ONE (OBTENER LOS DATOS DE UN REGISTRO DE UNA TABLA)
