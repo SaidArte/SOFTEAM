@@ -57,7 +57,7 @@ app.use(require ('./routes/seguridad'));
 app.use(require ('./routes/fierros'));
 app.use(require ('./routes/PERSONAS'));
 app.use(require ('./routes/Cventa'));
-app.use(require ('./routes/ptraslado'));
+app.use(require ('./routes/PTRASLADO'));
 app.use(require ('./routes/usuarios'));
 app.use(require ('./routes/roles'));
 app.use(require ('./routes/objetos'));
