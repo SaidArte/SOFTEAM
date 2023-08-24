@@ -20,7 +20,7 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
       // }
    //});
 });
-//METODO POST(INSERTAR)
+//METODO POST(INSERTAR TRASLADO)
 router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
   //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
    // if (err){
