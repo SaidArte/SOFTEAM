@@ -44,7 +44,7 @@ function ensureToken (req, res, next) {
 };
 
 // middleware.
-
+app.set('port', process.env.PORT || 4000);
 app.use(express.json());
 
 //app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
@@ -71,7 +71,10 @@ app.use(require ('./routes/Animal'));
 
 
 //conexion puerto.
-
-app.listen(3000, () =>{
+/*app.listen(3000, () =>{
     console.log('Server on port 3000');
-});
+});*/
+
+app.listen(app.get('port'), '0.0.0.0', () => {
+    console.log(`Server listening on port ${app.get('port')}`);
+  });
