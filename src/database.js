@@ -1,23 +1,23 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
+const dotenv = require('dotenv');
+dotenv.config();
  
 //const  mysqlConnection = require('mysql');
 
 const mysqlConnection = mysql.createConnection({
-    host:'142.44.161.115',
-    user: 'SOFTEAM',
-    port: 3306,
-    password: 'New##28yu',
-    database: 'SOFTEAM'
-
+   host: process.env.DB_HOST,
+   user: process.env.DB_USER,
+   port: process.env.DB_PORT,
+   password: process.env.DB_PASSWORD,
+   database: process.env.DB_DATABASE
 });
 
-mysqlConnection.connect( function (err){
-     if(!err){
-        console.log('¡Conexión exitosa en el puerto 3000!');
-     }else{
-        console.log('No se ha podido establecer conexión con la base de datos.');
-     }
-
+mysqlConnection.connect(function (err) {
+    if (err) {
+        console.error('Error al conectar a la base de datos:', err.message);
+    } else {
+        console.log('Conexión exitosa en el puerto',process.env.DB_PORT);
+    }
 });
 
 
