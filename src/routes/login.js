@@ -1,5 +1,5 @@
 // constantes requerida en nuestro carpeta routes para datos del modulo Fierros
-const express = require  ('express');
+const express = require('express');
 const router = express.Router();
 //const jwt = require('jsonwebtoken');
 
