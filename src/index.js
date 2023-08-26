@@ -5,13 +5,12 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const app = express();
 const mysqlConnection= require('./database'); //Conexión a la base de datos.
-
-// Configurar el parser de JSON.
 app.use(bodyParser.json());
-
-
-
 //Ruta de prueba para el token, solo muestra el usuario que inició sesión.
+app.set('port', process.env.PORT || 4000);
+
+app.use(express.json());
+
 app.get('/api/protected', ensureToken, (req, res) => {
     jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
         if (err){
@@ -40,9 +39,7 @@ function ensureToken (req, res, next) {
 };
 
 // middleware.
-app.set('port', process.env.PORT || 4000);
 
-app.use(express.json());
 
 //app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
 
