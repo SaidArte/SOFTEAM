@@ -10,11 +10,11 @@ app.use(express.json());
 
 
 
-//app.use(require ('./routes/login'));
+/*app.use(require ('./routes/login'));
 app.use(require ('./routes/psacrificio'));
-/*app.use(require ('./routes/seguridad'));
+app.use(require ('./routes/seguridad'));*/
 app.use(require ('./routes/fierros'));
-app.use(require ('./routes/PERSONAS'));
+/*app.use(require ('./routes/PERSONAS'));
 app.use(require ('./routes/Cventa'));
 app.use(require ('./routes/PTRASLADO'));
 app.use(require ('./routes/usuarios'));
