@@ -10,8 +10,8 @@ router.post('/api/login', (req, res) => {
     const { NOM_USUARIO, PAS_USUARIO } = req.body;
   
     // Consulta SQL para verificar si las credenciales del usuario son correctas.
-    const query = `SELECT a.COD_USUARIO, a.NOM_USUARIO, b.NOM_PERSONA, c.NOM_ROL, a.IND_USUARIO, a.FEC_ULTIMO_ACCESO, a.LIM_INTENTOS, a.NUM_INTENTOS_FALLIDOS, a.FEC_VENCIMIENTO FROM TBL_MS_USUARIOS a, PERSONAS  b, TBL_MS_ROLES c WHERE a.COD_PERSONA = b.COD_PERSONA AND a.COD_ROL = c.COD_ROL AND NOM_USUARIO = ? AND PAS_USUARIO = ?;`;
-    mysqlConnection.query(query, [NOM_USUARIO, PAS_USUARIO], (error, results) => {
+    const query = `SELECT a.COD_USUARIO, a.NOM_USUARIO, b.NOM_PERSONA, c.NOM_ROL, a.IND_USUARIO, a.FEC_ULTIMO_ACCESO, a.LIM_INTENTOS, a.NUM_INTENTOS_FALLIDOS, a.FEC_VENCIMIENTO FROM TBL_MS_USUARIOS a, PERSONAS  b, TBL_MS_ROLES c WHERE a.COD_PERSONA = b.COD_PERSONA AND a.COD_ROL = c.COD_ROL AND NOM_USUARIO = '${NOM_USUARIO}' AND PAS_USUARIO = sha1('${PAS_USUARIO}');`;
+    mysqlConnection.query(query, (error, results) => {
         if (error) {
             res.status(500).json({ error: 'Error interno del servidor' });
         } else {
