@@ -1,24 +1,27 @@
-const mysql = require ('mysql2');
+const mysql = require('mysql');
+ 
+//const  mysqlConnection = require('mysql');
 
 const mysqlConnection = mysql.createConnection({
-  host: '82.180.133.39',
-  port: 3306,
-  user: 'soft',
-  password: 'Arteaga1234.',
-  database: 'SOFTEAM',
-  multipleStatements: true
+    host:'142.44.161.115',
+    user: 'SOFTEAM',
+    port: 3306,
+    password: 'New##28yu',
+    database: 'SOFTEAM'
+
 });
 
-//Esto es para trabajar con mi BD de manera local, quitar, cuando se conecta al servidor remoto
+mysqlConnection.connect( function (err){
+     if(!err){
+        console.log('¡Conexión exitosa en el puerto 4000!');
+     }else{
+        console.log('No se ha podido establecer conexión con la base de datos.');
+     }
 
-mysqlConnection.connect(function (err) {
-  if (err) {
-    console.error(err);
-    return;
-  } else {
-    console.log('db is connected');
-  }
 });
 
-module.exports = mysqlConnection;
+
+// expotar la conexion mysql
+
+module.exports= mysqlConnection;
 
