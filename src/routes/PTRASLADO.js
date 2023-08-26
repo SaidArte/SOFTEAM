@@ -131,10 +131,10 @@ router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
 
 //METODO SELECT ONE (OBTENER LOS DATOS DE UN REGISTRO DE UNA TABLA)
 router.get('/PTRASLADO/GETONE/' , (req , res )=>{
-  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+  /*jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
         res.sendStatus(403);
-    }else {
+    }else {*/
       const {
               TABLA_NOMBRE,
               COD_PTRASLADO,
@@ -187,8 +187,8 @@ router.get('/PTRASLADO/GETONE/' , (req , res )=>{
           console.log(err);
         }
       });
-    }
-  });
+    //}
+ // });
 });
 
 
