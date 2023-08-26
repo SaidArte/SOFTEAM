@@ -10,9 +10,9 @@ app.use(express.json());
 
 
 
-app.use(require ('./routes/login'));
+//app.use(require ('./routes/login'));
 app.use(require ('./routes/psacrificio'));
-app.use(require ('./routes/seguridad'));
+/*app.use(require ('./routes/seguridad'));
 app.use(require ('./routes/fierros'));
 app.use(require ('./routes/PERSONAS'));
 app.use(require ('./routes/Cventa'));
@@ -24,7 +24,7 @@ app.use(require ('./routes/permisos'));
 app.use(require ('./routes/preguntas'));
 app.use(require ('./routes/respuestas'));
 app.use(require ('./routes/mantenimientos'));
-app.use(require ('./routes/Animal'));
+app.use(require ('./routes/Animal'));*/
 
 
 app.listen(app.get('port'), '0.0.0.0', () => {
