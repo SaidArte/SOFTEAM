@@ -4,18 +4,12 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const app = express();
-const dotenv = require('dotenv');
-dotenv.config();
 const mysqlConnection= require('./database'); //Conexión a la base de datos.
 
 // Configurar el parser de JSON.
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.json({
-        text: 'api work!'
-    });
-});
+
 
 //Ruta de prueba para el token, solo muestra el usuario que inició sesión.
 app.get('/api/protected', ensureToken, (req, res) => {
@@ -46,7 +40,8 @@ function ensureToken (req, res, next) {
 };
 
 // middleware.
-app.set('port', process.env.DB_PORT || 4000);
+app.set('port', process.env.PORT || 4000);
+
 app.use(express.json());
 
 //app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
