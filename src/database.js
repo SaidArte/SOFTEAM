@@ -8,7 +8,7 @@ const mysqlConnection = mysql.createConnection({
    user: 'soft',
    password: 'Arteaga1234.',
    database: 'SOFTEAM',
-   multipleStatements: true
+   
  });
 
 mysqlConnection.connect( function (err){
