@@ -1,14 +1,14 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
  
 //const  mysqlConnection = require('mysql');
 
 const mysqlConnection = mysql.createConnection({
-    host:'142.44.161.115',
-    user: 'SOFTEAM',
+    host:'82.180.133.39',
+    user: 'soft',
     port: 3306,
-    password: 'New##28yu',
-    database: 'SOFTEAM'
-
+    password: 'Arteaga1234.',
+    database: 'SOFTEAM',
+    multipleStatements: true
 });
 
 mysqlConnection.connect( function (err){
