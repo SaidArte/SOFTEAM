@@ -15,10 +15,10 @@ const mysqlConnection= require('../database');
 //TABLA DE ANIMAL
 
 router.get('/ANIMAL/GETALL' , (req , res )=>{
-  // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
-      // if (err){
-          // res.sendStatus(403);
-       //}else {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
+      if (err){
+          res.sendStatus(403);
+       }else {
            const query =`SELECT a.COD_ANIMAL ,a.FEC_REG_ANIMAL, a.CLAS_ANIMAL,  a.RAZ_ANIMAL, a.COL_ANIMAL, a.COD_FIERRO,  c.NOM_PERSONA, a.VEN_ANIMAL, a.HER_ANIMAL, a.DET_ANIMAL 
            FROM ANIMALES a, FIERROS b, PERSONAS c
             WHERE a.COD_FIERRO = c.COD_PERSONA
@@ -32,8 +32,8 @@ router.get('/ANIMAL/GETALL' , (req , res )=>{
                console.log(err);
                }
            });
-      // }
-   //});
+      }
+   });
 });
 
 
@@ -42,10 +42,10 @@ router.get('/ANIMAL/GETALL' , (req , res )=>{
 //Metodo de Insertar Datos(POST), nos permite insertar un nuevo dato elegiendo una tablas como ser la de Animal 
 
 router.post('/ANIMAL/INSERTAR' , (req , res )=>{
-  // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-       //if (err){
-           //res.sendStatus(403);
-      // }else {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+       if (err){
+           res.sendStatus(403);
+      }else {
           try {
               const {
 
@@ -76,14 +76,15 @@ router.post('/ANIMAL/INSERTAR' , (req , res )=>{
               console.log(error);
               res.status(400).json({ error: 'Datos inválidos'});
           }
-      // }
+      }
     });
+  });
 
     router.put('/ANIMAL/ACTUALIZAR/:COD_ANIMAL' , (req , res )=>{
-      //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-        //if (err){
-            //res.sendStatus(403);
-        //}else {
+      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+        if (err){
+            res.sendStatus(403);
+        }else {
             
             try {
               const {
@@ -112,8 +113,8 @@ router.post('/ANIMAL/INSERTAR' , (req , res )=>{
               console.log(error);
               res.status(400).json({ error: 'Datos inválidos'});
           }
-        //}
-      //});
+        }
+      });
     });
 
 

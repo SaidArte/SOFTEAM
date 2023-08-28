@@ -1,16 +1,17 @@
+//API para pruebas con json.
 // constantes requerida en nuestro carpeta routes para datos del Modulo Seguridad
 const express = require  ('express');
 const router = express.Router();
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
 //SELECT ALL
 router.get('/SEGURIDAD/GETALL' , (req , res )=>{
-   // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
-       // if (err){
-           // res.sendStatus(403);
-        //}else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
+        if (err){
+            res.sendStatus(403);
+        }else {
             const {
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -79,16 +80,16 @@ router.get('/SEGURIDAD/GETALL' , (req , res )=>{
                 console.log(err);
                 }
             });
-       // }
-    //});
+        }
+    });
 });
 
 //POST
 router.post('/SEGURIDAD/INSERTAR' , (req , res )=>{
-   // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-        //if (err){
-            //res.sendStatus(403);
-       // }else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+        if (err){
+            res.sendStatus(403);
+        }else {
             const {
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -157,17 +158,17 @@ router.post('/SEGURIDAD/INSERTAR' , (req , res )=>{
                 console.log(err);
             }
          });
-       // }
-   // });
+        }
+    });
 });
 
 
 //SELECT ONE
 router.get('/SEGURIDAD/GETONE/' , (req , res )=>{
-    //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-        //if (err){
-           // res.sendStatus(403);
-       // }else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+        if (err){
+            res.sendStatus(403);
+        }else {
             const {
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -236,16 +237,16 @@ router.get('/SEGURIDAD/GETONE/' , (req , res )=>{
                     console.log(err);
                 }
             });
-       // }
-   // });
+        }
+    });
 });
 
 //PUT O UPDATE
 router.put('/SEGURIDAD/ACTUALIZAR/' , (req , res)=>{
-    //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-       // if (err){
-          //  res.sendStatus(403);
-       // }else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+        if (err){
+            res.sendStatus(403);
+        }else {
             const {
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -314,16 +315,16 @@ router.put('/SEGURIDAD/ACTUALIZAR/' , (req , res)=>{
                     console.log(err);
                 }
              });
-        //}
-   // });
+        }
+    });
 });
 
   //PUT PARA CAMBIO DE PASSWORD
 router.put('/SEGURIDAD/ACTUALIZAR-PASS/' , (req , res)=>{
-   // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-        //if (err){
-           // res.sendStatus(403);
-       // }else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+        if (err){
+            res.sendStatus(403);
+        }else {
             const {
                 COD_ROL,
                 NOM_ROL,
@@ -390,8 +391,8 @@ router.put('/SEGURIDAD/ACTUALIZAR-PASS/' , (req , res)=>{
                   console.log(err);
               }
              });
-       // }
-    //});
+        }
+    });
 });
 
 module.exports = router;

@@ -1,16 +1,16 @@
 // constantes requerida en nuestro carpeta routes para datos del modulo Permisos Sacrificios
 const express = require  ('express');
 const router = express.Router();
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
 //SELECT ALL: Aqui llamaremos a la tabla con todos los registros de la Base de Datos
 router.get('/PSACRIFICIO/GETALL' , (req , res ) =>{
-  /*jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
       res.sendStatus(403);
-  }else {*/
+  }else {
         mysqlConnection.query('SELECT * FROM PERMISOS_SACRIFICIO' , ( err, rows , fields ) =>{
         if(!err){
           res.json(rows);
@@ -18,16 +18,16 @@ router.get('/PSACRIFICIO/GETALL' , (req , res ) =>{
           console.log(err);
         }
       });
-    //}
- //});
+    }
+ });
 });
 
 //POST: Insertaremos nuevos registros en la tabla
 router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
-  /*jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
        res.sendStatus(403);
-    }else {*/
+    }else {
       const { //Llamaremos a todas las variables del Procedimiento Almacenado PSacrificio
         //TABLA_NOMBRE,
         //TIPO_OPERACION,
@@ -65,16 +65,16 @@ router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
             }
 
       });
-    //}
-  //});
+    }
+  });
 });
 
 //SELECT ONE: Seleccionamos un registro en especifico mediante nuestra llave primaria
 router.get('/PSACRIFICIO/GETONE/:COD_PSACRIFICIO',(req, res) =>{
-  /*jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
       res.sendStatus(403);
-   }else {*/
+   }else {
       const { COD_PSACRIFICIO } = req.params;
       mysqlConnection.query('SELECT * FROM PERMISOS_SACRIFICIO WHERE COD_PSACRIFICIO = ?', [COD_PSACRIFICIO], (err, 
          rows, fields) => {
@@ -84,16 +84,16 @@ router.get('/PSACRIFICIO/GETONE/:COD_PSACRIFICIO',(req, res) =>{
              console.log(err);
              }
        });
-    //}
- //});
+    }
+ });
 });
 
 //PUT: Actualizamos cualquier registro llamando al COD_PSACRIFICIO
 router.put('/PSACRIFICIO/ACTUALIZAR/:COD_PSACRIFICIO' , (req , res)=>{
-  /*jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
    if (err){
         res.sendStatus(403);
-   }else {*/
+   }else {
    try {
         const {  
           //TABLA_NOMBRE,
@@ -121,8 +121,9 @@ router.put('/PSACRIFICIO/ACTUALIZAR/:COD_PSACRIFICIO' , (req , res)=>{
      } catch (error) {
       console.log(error);
       res.status(400).json({ error: 'Datos inválidos'});
-     } 
-    //});
+     }
+    } 
+    });
   });
 
 module.exports = router;

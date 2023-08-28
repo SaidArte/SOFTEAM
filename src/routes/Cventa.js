@@ -10,10 +10,10 @@ const mysqlConnection= require('../database');
 //Metodo de Consulta General (SELECT ALL) ,Consulta de todo los datos insertados tanto de la tabla  Expediente_cventa.
 
 router.get('/CVENTA/GETALL' , (req , res )=>{
-  // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
-      // if (err){
-          // res.sendStatus(403);
-       //}else {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
+      if (err){
+          res.sendStatus(403);
+       }else {
            const query =` 
            select a.COD_CVENTA, a.FEC_CVENTA, a.COD_VENDEDOR, b.NOM_PERSONA as NombreVendedor, a.NOM_COMPRADOR, a.DNI_COMPRADOR, c.COD_ANIMAL, a.FOL_CVENTA, a.ANT_CVENTA 
            from EXPEDIENTE_CVENTA a, PERSONAS b, ANIMALES c
@@ -27,17 +27,17 @@ router.get('/CVENTA/GETALL' , (req , res )=>{
                console.log(err);
                }
            });
-      // }
-   //});
+      }
+   });
 })
 
 //Metodo de Insertar Datos(POST), nos permite insertar un nuevo dato elegiendo una tablas como ser la de Animal o Expediente_cventa 
 
 router.post('/CVENTA/INSERTAR' , (req , res )=>{
-  // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-       //if (err){
-           //res.sendStatus(403);
-      // }else {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+       if (err){
+           res.sendStatus(403);
+      }else {
           try {
               const {
                      // COD_CVENTA ,
@@ -65,15 +65,15 @@ router.post('/CVENTA/INSERTAR' , (req , res )=>{
               console.log(error);
               res.status(400).json({ error: 'Datos inválidos'});
           }
-      // }
-  // });
+      }
+  });
 });
 
 router.put('/CVENTA/ACTUALIZAR/:COD_CVENTA' , (req , res )=>{
-  //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-    //if (err){
-        //res.sendStatus(403);
-    //}else {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+    if (err){
+        res.sendStatus(403);
+    }else {
         
         try {
           const {
@@ -102,8 +102,8 @@ router.put('/CVENTA/ACTUALIZAR/:COD_CVENTA' , (req , res )=>{
           console.log(error);
           res.status(400).json({ error: 'Datos inválidos'});
       }
-    //}
-  //});
+    }
+  });
 });
 
 

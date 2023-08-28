@@ -1,11 +1,11 @@
 // constantes requerida en nuestro carpeta routes para datos del modulo Fierros
 const express = require  ('express');
 const router = express.Router();
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
-//Ruta para la obtención de un token.
+//Ruta para la obtención de un token y datos del usuario.
 router.post('/api/login', (req, res) => {
     const { NOM_USUARIO, PAS_USUARIO } = req.body;
   
@@ -17,7 +17,8 @@ router.post('/api/login', (req, res) => {
         } else {
             if (results.length > 0) {
                 if (results[0].IND_USUARIO === 'ACTIVO') {
-                    res.json({ message: 'Inicio de sesión exitoso', user: results[0]});
+                    const token = jwt.sign({NOM_USUARIO}, 'my_ultrasecret_token', { expiresIn: '24h' });
+                    res.json({ message: 'Inicio de sesión exitoso', user: results[0], token: token});
                 } else {
                     res.status(401).json({ error_type: 'inactive', message: 'Usuario inactivo' });
                 }
@@ -28,22 +29,127 @@ router.post('/api/login', (req, res) => {
     });
 });
 
-/*router.get('/api/login' , (req , res )=>{
-  // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
-      // if (err){
-          // res.sendStatus(403);
-       //}else {
-          const { COD_USUARIO, PAS_USUARIO } = req.body;
-           const query =`SELECT * FROM TBL_MS_USUARIOS WHERE COD_USUARIO = ? AND PAS_USUARIO = ? AND IND_USUARIO = 'ACTIVO';`; //Llamado al procedimiento almacenado del modulo de seguridad.
-           mysqlConnection.query(query , [COD_USUARIO, PAS_USUARIO], (err , rows , fields) =>{
-               if(!err){
-               res.json(rows);
-               }else{
-               console.log(err);
-               }
-           });
-      // }
-   //});
-});*/
+router.put('/SEGURIDAD/ACTUALIZAR_PASS_USUARIOS' , (req , res )=>{
+    try {
+        const {
+                COD_USUARIO,
+                PAS_USUARIO
+            } =req.body;
+            console.log(req.body)
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'C', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','${PAS_USUARIO}','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            mysqlConnection.query(query , (err , rows , fields) =>{
+            if(!err){
+                res.json({status: 'Registro actualizado correctamente'})
+            }else{
+                console.log(err);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: 'Datos inválidos'});
+    }
+});
+
+router.put('/SEGURIDAD/ACTUALIZAR_INT_FALLIDOS' , (req , res )=>{
+    try {
+        const {
+                COD_USUARIO,
+                NUM_INTENTOS_FALLIDOS
+            } =req.body;
+            console.log(req.body)
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'F', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '${NUM_INTENTOS_FALLIDOS}', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            mysqlConnection.query(query , (err , rows , fields) =>{
+            if(!err){
+                res.json({status: 'Registro actualizado correctamente'})
+            }else{
+                console.log(err);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: 'Datos inválidos'});
+    }
+});
+
+router.put('/SEGURIDAD/ACTUALIZAR_FECHA_ACCESO' , (req , res )=>{
+    try {
+        const {
+                COD_USUARIO
+            } =req.body;
+            console.log(req.body)
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'A', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            mysqlConnection.query(query , (err , rows , fields) =>{
+            if(!err){
+                res.json({status: 'Registro actualizado correctamente'})
+            }else{
+                console.log(err);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: 'Datos inválidos'});
+    }
+});
+
+router.post('/SEGURIDAD/GETONE_USUARIOS' , (req , res )=>{
+    try {
+        const {
+                NOM_USUARIO
+            } =req.body;
+            console.log(req.body)
+            const query =`SELECT a.COD_USUARIO, a.NOM_USUARIO, b.NOM_PERSONA, c.NOM_ROL, a.IND_USUARIO, a.FEC_ULTIMO_ACCESO, a.LIM_INTENTOS, a.NUM_INTENTOS_FALLIDOS, a.FEC_VENCIMIENTO FROM TBL_MS_USUARIOS a, PERSONAS  b, TBL_MS_ROLES c WHERE a.COD_PERSONA = b.COD_PERSONA AND a.COD_ROL = c.COD_ROL AND a.NOM_USUARIO = '${NOM_USUARIO}';`;
+            mysqlConnection.query(query , (err , rows , fields) =>{
+                if(!err){
+                res.json(rows);
+                }else{
+                console.log(err);
+                }
+            });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: 'Datos inválidos'});
+    }
+});
+
+router.post('/SEGURIDAD/GETONE_PREGUNTA_USUARIOS' , (req , res )=>{
+    try {
+            const {
+                NOM_USUARIO
+            } =req.body;
+            console.log(req.body)
+            const query =`SELECT b.PREGUNTA FROM TBL_MS_PREGUNTAS_USUARIO a,  TBL_MS_PREGUNTAS b , TBL_MS_USUARIOS c WHERE a.COD_PREGUNTA = b.COD_PREGUNTA AND a.COD_USUARIO = c.COD_USUARIO AND c.NOM_USUARIO = '${NOM_USUARIO}';`;
+            mysqlConnection.query(query , (err , rows , fields) =>{
+            if(!err){
+            res.json(rows);
+            }else{
+            console.log(err);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: 'Datos inválidos'});
+    }
+        
+});
+
+router.post('/SEGURIDAD/GETONE_RESPUESTAS' , (req , res )=>{
+    try {
+        const {
+                RESPUESTA
+            } =req.body;
+            console.log(req.body)
+            const query =`SELECT a.COD_USUARIO FROM TBL_MS_USUARIOS a,  TBL_MS_PREGUNTAS_USUARIO b WHERE a.COD_USUARIO = b.COD_USUARIO AND b.RESPUESTA = '${RESPUESTA}';`;
+            mysqlConnection.query(query , (err , rows , fields) =>{
+            if(!err){
+            res.json(rows);
+            }else{
+            console.log(err);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: 'Datos inválidos'});
+    }
+});
 
 module.exports = router;

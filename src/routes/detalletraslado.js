@@ -1,15 +1,15 @@
 // constantes requerida en nuestro carpeta routes para datos del Modulo Seguridad
 const express = require  ('express');
 const router = express.Router();
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
 router.get('/DETALLETRASLADO/GETALL' , (req , res )=>{
-    // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
-        // if (err){
-            // res.sendStatus(403);
-         //}else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
+        if (err){
+            res.sendStatus(403);
+         }else {
              const query =`SELECT * FROM DETALLE_TRASLADO;`; 
              mysqlConnection.query(query , (err , rows , fields) =>{
                  if(!err){
@@ -18,16 +18,16 @@ router.get('/DETALLETRASLADO/GETALL' , (req , res )=>{
                  console.log(err);
                  }
              });
-        // }
-     //});
+        }
+     });
  });
 
  //POST
 router.post('/DETALLETRASLADO/INSERTAR' , (req , res )=>{
-    // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-         //if (err){
-             //res.sendStatus(403);
-        // }else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+         if (err){
+             res.sendStatus(403);
+        }else {
             try {
                 const {
                     COD_PTRASLADO,
@@ -47,16 +47,16 @@ router.post('/DETALLETRASLADO/INSERTAR' , (req , res )=>{
                 console.log(error);
                 res.status(400).json({ error: 'Datos inválidos'});
             }
-        // }
-    // });
+        }
+    });
 });
 
 //PROCEDIMIENTO PARA ACTUALIZAR
 router.put('/DETALLETRASLADO/ACTUALIZAR' , (req , res )=>{
-    // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-         //if (err){
-             //res.sendStatus(403);
-        // }else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+         if (err){
+             res.sendStatus(403);
+        }else {
             try {
                 const {
                     COD_PTRASLADO,
@@ -76,16 +76,16 @@ router.put('/DETALLETRASLADO/ACTUALIZAR' , (req , res )=>{
                 console.log(error);
                 res.status(400).json({ error: 'Datos inválidos'});
             }
-        // }
-    // });
+        }
+    });
 });
 
 //PROCEDIMIENTO PARA ACTUALIZAR
 router.get('/DETALLETRASLADO/GET_ONE' , (req , res )=>{
-    // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-         //if (err){
-             //res.sendStatus(403);
-        // }else {
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+         if (err){
+             res.sendStatus(403);
+        }else {
             try {
                 const {
                     COD_DTRASLADO
@@ -103,8 +103,8 @@ router.get('/DETALLETRASLADO/GET_ONE' , (req , res )=>{
                 console.log(error);
                 res.status(400).json({ error: 'Datos inválidos'});
             }
-        // }
-    // });
+        }
+    });
 });
 
 module.exports = router;

@@ -43,16 +43,14 @@ function ensureToken (req, res, next) {
     }
 };
 
+app.use(require ('./routes/login'));
 // middleware.
-
 app.use(express.json());
 app.set('port', process.env.PORT || 4000);
 
-//app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
+app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
 
 //Routes.
-
-app.use(require ('./routes/login'));
 app.use(require ('./routes/psacrificio'));
 app.use(require ('./routes/seguridad'));
 app.use(require ('./routes/fierros'));

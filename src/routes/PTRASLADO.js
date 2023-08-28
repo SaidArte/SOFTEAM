@@ -1,14 +1,14 @@
 // constantes requerida en nuestro carpeta routes para el modulo de Permisos Traslado
 const express = require  ('express');
 const router = express.Router();
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 router.get('/PTRASLADO/GETALL' , (req , res )=>{
-  // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
-      // if (err){
-          // res.sendStatus(403);
-       //}else {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
+      if (err){
+          res.sendStatus(403);
+       }else {
            const query =`SELECT * FROM PERMISOS_TRASLADO;`; 
            mysqlConnection.query(query , (err , rows , fields) =>{
                if(!err){
@@ -17,15 +17,15 @@ router.get('/PTRASLADO/GETALL' , (req , res )=>{
                console.log(err);
                }
            });
-      // }
-   //});
+       }
+   });
 });
 //METODO POST(INSERTAR)
 router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
-  //jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-   // if (err){
-       // res.sendStatus(403);
-    //}else {
+  jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+   if (err){
+        res.sendStatus(403);
+    }else {
       const {             
               FEC_TRASLADO,
               COD_PERSONA,
@@ -71,17 +71,17 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
               console.log(err);
           }
       });
-    //}
-  //});
+    }
+  });
 });
 
 
 //METODO PUT (ACTUALIZAR)
 router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
- // jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
-   // if (err){
-    //    res.sendStatus(403);
-    //}else {
+ jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
+    if (err){
+        res.sendStatus(403);
+    }else {
       const {
           COD_PTRASLADO,
           FEC_TRASLADO,
@@ -125,8 +125,8 @@ router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
             console.log(err);
         }
       });
-    //}
-  //});
+    }
+  });
 });
 
 //METODO SELECT ONE (OBTENER LOS DATOS DE UN REGISTRO DE UNA TABLA)
