@@ -135,10 +135,11 @@ router.post('/SEGURIDAD/GETONE_PREGUNTA_USUARIOS' , (req , res )=>{
 router.post('/SEGURIDAD/GETONE_RESPUESTAS' , (req , res )=>{
     try {
         const {
+                NOM_USUARIO,
                 RESPUESTA
             } =req.body;
             console.log(req.body)
-            const query =`SELECT a.COD_USUARIO FROM TBL_MS_USUARIOS a,  TBL_MS_PREGUNTAS_USUARIO b WHERE a.COD_USUARIO = b.COD_USUARIO AND b.RESPUESTA = '${RESPUESTA}';`;
+            const query =`SELECT a.COD_USUARIO, a.NOM_USUARIO FROM TBL_MS_USUARIOS a,  TBL_MS_PREGUNTAS_USUARIO b WHERE a.COD_USUARIO = b.COD_USUARIO AND b.RESPUESTA = '${RESPUESTA}' AND a.NOM_USUARIO = '${NOM_USUARIO}';`;
             mysqlConnection.query(query , (err , rows , fields) =>{
             if(!err){
             res.json(rows);
