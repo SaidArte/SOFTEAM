@@ -13,7 +13,7 @@ const mysqlConnection = mysql.createConnection({
 
 mysqlConnection.connect( function (err){
      if(!err){
-        console.log('¡Conexión exitosa en el puerto 4000!');
+        console.log('¡Conexión exitosa en el puerto elegido!');
      }else{
         console.log('No se ha podido establecer conexión con la base de datos.');
      }

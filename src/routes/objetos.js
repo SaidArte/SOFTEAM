@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
+//GET (Select) para mostrar todos los registros.
 router.get('/SEGURIDAD/GETALL_OBJETOS' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
          if (err){
@@ -22,7 +23,7 @@ router.get('/SEGURIDAD/GETALL_OBJETOS' , (req , res )=>{
      });
  });
 
- //POST
+ //POST (Insertar).
 router.post('/SEGURIDAD/INSERTAR_OBJETOS' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
@@ -35,7 +36,7 @@ router.post('/SEGURIDAD/INSERTAR_OBJETOS' , (req , res )=>{
                     TIP_OBJETO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'I', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0','2023-07-01', '0', '¿Nombre de su primer mascota??', 'CAMPEON', '0', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'I', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota??', 'CAMPEON', '0', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -51,6 +52,7 @@ router.post('/SEGURIDAD/INSERTAR_OBJETOS' , (req , res )=>{
      });
 });
 
+//API con el método PUT (actualizar).
 router.put('/SEGURIDAD/ACTUALIZAR_OBJETOS' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
@@ -64,7 +66,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_OBJETOS' , (req , res )=>{
                     TIP_OBJETO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'U', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0','2023-07-01', '0', '¿Nombre de su primer mascota??', 'CAMPEON','${COD_OBJETO}', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'U', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota??', 'CAMPEON','${COD_OBJETO}', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})
@@ -80,7 +82,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_OBJETOS' , (req , res )=>{
      });
 });
 
-
+//GET a solo un registro.
 router.get('/SEGURIDAD/GETONE_OBJETOS' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
@@ -91,7 +93,7 @@ router.get('/SEGURIDAD/GETONE_OBJETOS' , (req , res )=>{
                         COD_OBJETO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'ST', '1', 'Admins', '1', '0', '0','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '${COD_OBJETO}', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'ST', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota??', 'CAMPEON','${COD_OBJETO}', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);

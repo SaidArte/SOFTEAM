@@ -1,4 +1,4 @@
-//API para pruebas con json.
+//API para pruebas con json - Desactualizada!.
 // constantes requerida en nuestro carpeta routes para datos del Modulo Seguridad
 const express = require  ('express');
 const router = express.Router();
@@ -21,11 +21,7 @@ router.get('/SEGURIDAD/GETALL' , (req , res )=>{
                 COD_PERSONA, 
                 PAS_USUARIO,
                 IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -43,7 +39,7 @@ router.get('/SEGURIDAD/GETALL' , (req , res )=>{
                 MON_MANTENIMIENTO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`; //Llamado al procedimiento almacenado del modulo de seguridad.
+            const query =`CALL SP_MOD_SEGURIDAD(?,'S',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`; //Llamado al procedimiento almacenado del modulo de seguridad.
             mysqlConnection.query(query , [
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -53,11 +49,7 @@ router.get('/SEGURIDAD/GETALL' , (req , res )=>{
                 COD_PERSONA, 
                 PAS_USUARIO,
                 IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -99,11 +91,7 @@ router.post('/SEGURIDAD/INSERTAR' , (req , res )=>{
                 COD_PERSONA, 
                 PAS_USUARIO,
                 IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -121,7 +109,7 @@ router.post('/SEGURIDAD/INSERTAR' , (req , res )=>{
                 MON_MANTENIMIENTO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD(?,'I',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
+            const query =`CALL SP_MOD_SEGURIDAD(?,'I',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
             mysqlConnection.query(query , [
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -130,12 +118,8 @@ router.post('/SEGURIDAD/INSERTAR' , (req , res )=>{
                 COD_USUARIO,  
                 COD_PERSONA, 
                 PAS_USUARIO,
-                IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
+                IND_USUARIO,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -177,12 +161,8 @@ router.get('/SEGURIDAD/GETONE/' , (req , res )=>{
                 COD_USUARIO,  
                 COD_PERSONA, 
                 PAS_USUARIO,
-                IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
+                IND_USUARIO,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -200,7 +180,7 @@ router.get('/SEGURIDAD/GETONE/' , (req , res )=>{
                 MON_MANTENIMIENTO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
+            const query =`CALL SP_MOD_SEGURIDAD(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
             mysqlConnection.query(query , [
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -209,12 +189,8 @@ router.get('/SEGURIDAD/GETONE/' , (req , res )=>{
                 COD_USUARIO,  
                 COD_PERSONA, 
                 PAS_USUARIO,
-                IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
+                IND_USUARIO,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -255,12 +231,8 @@ router.put('/SEGURIDAD/ACTUALIZAR/' , (req , res)=>{
                 COD_USUARIO,  
                 COD_PERSONA, 
                 PAS_USUARIO,
-                IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
+                IND_USUARIO,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -278,7 +250,7 @@ router.put('/SEGURIDAD/ACTUALIZAR/' , (req , res)=>{
                 MON_MANTENIMIENTO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
+            const query =`CALL SP_MOD_SEGURIDAD(?,'U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
             mysqlConnection.query(query , [
                 TABLA_NOMBRE,
                 COD_ROL,
@@ -287,12 +259,8 @@ router.put('/SEGURIDAD/ACTUALIZAR/' , (req , res)=>{
                 COD_USUARIO,  
                 COD_PERSONA, 
                 PAS_USUARIO,
-                IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
+                IND_USUARIO,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -332,12 +300,8 @@ router.put('/SEGURIDAD/ACTUALIZAR-PASS/' , (req , res)=>{
                 COD_USUARIO,  
                 COD_PERSONA, 
                 PAS_USUARIO,
-                IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
+                IND_USUARIO,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,
@@ -355,7 +319,7 @@ router.put('/SEGURIDAD/ACTUALIZAR-PASS/' , (req , res)=>{
                 MON_MANTENIMIENTO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS','C',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS','C',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
             mysqlConnection.query(query , [
                 COD_ROL,
                 NOM_ROL,
@@ -363,12 +327,8 @@ router.put('/SEGURIDAD/ACTUALIZAR-PASS/' , (req , res)=>{
                 COD_USUARIO,  
                 COD_PERSONA, 
                 PAS_USUARIO,
-                IND_USUARIO, 
-                FEC_ULTIMO_CAMBIO,
-                FEC_ULTIMO_ACCESO,
-                LIM_INTENTOS,
+                IND_USUARIO,
                 NUM_INTENTOS_FALLIDOS,
-                FEC_VENCIMIENTO,
                 COD_PREGUNTA,
                 PREGUNTA,
                 RESPUESTA,

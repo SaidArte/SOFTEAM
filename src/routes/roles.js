@@ -5,12 +5,13 @@ const jwt = require('jsonwebtoken');
 
 const mysqlConnection= require('../database');
 
+//GET (select).
 router.get('/SEGURIDAD/GETALL_ROLES' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
          if (err){
              res.sendStatus(403);
          }else {
-             const query =`SELECT * FROM TBL_MS_ROLES;`; //Llamado al procedimiento almacenado del modulo de seguridad.
+             const query =`SELECT * FROM TBL_MS_ROLES;`;
              mysqlConnection.query(query , (err , rows , fields) =>{
                  if(!err){
                  res.json(rows);
@@ -22,7 +23,7 @@ router.get('/SEGURIDAD/GETALL_ROLES' , (req , res )=>{
      });
  });
 
- //POST
+ //POST (insertar).
 router.post('/SEGURIDAD/INSERTAR_ROLES' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
@@ -34,7 +35,7 @@ router.post('/SEGURIDAD/INSERTAR_ROLES' , (req , res )=>{
                     DES_ROL
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'I', '1', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0','2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'I', '1', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -50,6 +51,7 @@ router.post('/SEGURIDAD/INSERTAR_ROLES' , (req , res )=>{
      });
 });
 
+//PUT (actualizar).
 router.put('/SEGURIDAD/ACTUALIZAR_ROLES' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
@@ -62,7 +64,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_ROLES' , (req , res )=>{
                     DES_ROL
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'U', '${COD_ROL}', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0','2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'U', '${COD_ROL}', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})
@@ -78,7 +80,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_ROLES' , (req , res )=>{
      });
 });
 
-
+//GET (select para buscar un registro en particular).
 router.get('/SEGURIDAD/GETONE_ROLES' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
@@ -89,7 +91,7 @@ router.get('/SEGURIDAD/GETONE_ROLES' , (req , res )=>{
                         COD_ROL
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'ST', '${COD_ROL}', 'Admins', '1', '1', '1','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'ST', '${COD_ROL}', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);

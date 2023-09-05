@@ -44,11 +44,13 @@ function ensureToken (req, res, next) {
 };
 
 app.use(require ('./routes/login'));
-// middleware.
-app.use(express.json());
-app.set('port', process.env.PORT || 4000);
 
-app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas.
+// middlewares.
+app.use(express.json());
+
+app.set('port', process.env.PORT || 4000); //Asignamos un número de puerto según variable de entorno o uno predeterminado (4000).
+
+app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas que lo requiramos.
 
 //Routes.
 app.use(require ('./routes/psacrificio'));
@@ -69,8 +71,8 @@ app.use(require ('./routes/Animal'));
 
 
 
-//conexion puerto.
+//Conexión puerto.
 
 app.listen(app.get('port'), '0.0.0.0', () => {
     console.log(`Server listening on port ${app.get('port')}`);
-  });
+});

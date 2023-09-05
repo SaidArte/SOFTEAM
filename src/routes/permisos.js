@@ -37,7 +37,7 @@ router.post('/SEGURIDAD/INSERTAR_PERMISOS' , (req , res )=>{
                     PRM_CONSULTAR
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_PERMISOS', 'I', '1', '${NOM_ROL}', '1', '1', '1', 'nombreusuario','1','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '${OBJETO}', '1', '1', '${PRM_INSERTAR}', '${PRM_ACTUALIZAR}', '${PRM_CONSULTAR}', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_PERMISOS', 'I', '1', '${NOM_ROL}', '1', '1', '1', 'nombreusuario','1','ACTIVO', '0', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '${OBJETO}', '1', '1', '${PRM_INSERTAR}', '${PRM_ACTUALIZAR}', '${PRM_CONSULTAR}', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -67,7 +67,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_PERMISOS' , (req , res )=>{
                     PRM_CONSULTAR
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_PERMISOS', 'U', '${COD_ROL}', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0','2023-07-01', '0', '¿Nombre de su primer mascota?', 'CAMPEON','${COD_OBJETO}', 'ol', 'nj', 'bgv', '${PRM_INSERTAR}', '${PRM_ACTUALIZAR}', '${PRM_CONSULTAR}', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_PERMISOS', 'U', '${COD_ROL}', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota?', 'CAMPEON','${COD_OBJETO}', 'ol', 'nj', 'bgv', '${PRM_INSERTAR}', '${PRM_ACTUALIZAR}', '${PRM_CONSULTAR}', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})
@@ -95,7 +95,7 @@ router.get('/SEGURIDAD/GETONE_PERMISOS' , (req , res )=>{
                     COD_OBJETO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_PERMISOS', 'ST', '${COD_ROL}', 'Admins', '1', '0', '0','1','ACTIVO','2023-07-01','2023-07-01', '3', '3', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '${COD_OBJETO}', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_PERMISOS', 'ST', '${COD_ROL}', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota??', 'CAMPEON', '${COD_OBJETO}', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);
@@ -111,6 +111,7 @@ router.get('/SEGURIDAD/GETONE_PERMISOS' , (req , res )=>{
      });
 });
 
+//API que extrae  los permisos de un determinado rol de usuario sobre un objeto (vista) del sistema.
 router.post('/SEGURIDAD/GETONE_SOLOPERMISOS' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
