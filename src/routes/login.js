@@ -113,7 +113,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_FECHA_VENCIMIENTO' , (req , res )=>{
         console.log(error);
         res.status(400).json({ error: 'Datos inválidos'});
     }
-});
+}); //Uso para pruebas, por lo regular se actualiza automáticamente luego de un cambio de contraseña exitoso.
 
 //Esta API llama a un determinado usuario.
 router.post('/SEGURIDAD/GETONE_USUARIOS' , (req , res )=>{
