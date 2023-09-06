@@ -43,7 +43,7 @@ function ensureToken (req, res, next) {
     }
 };
 
-app.use(require ('./routes/login'));
+app.use(require ('./routes/login')); //Ruta libre para todos.
 
 // middlewares.
 app.use(express.json());
@@ -52,7 +52,7 @@ app.set('port', process.env.PORT || 4000); //Asignamos un número de puerto seg�
 
 app.use(ensureToken); //La función "ensureToken" la usaremos como middleware para ser usada por todas nuestras rutas que lo requiramos.
 
-//Routes.
+//Routes (protegidas por token).
 app.use(require ('./routes/psacrificio'));
 app.use(require ('./routes/seguridad'));
 app.use(require ('./routes/fierros'));
