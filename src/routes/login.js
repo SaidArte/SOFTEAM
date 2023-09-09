@@ -189,7 +189,7 @@ router.post('/SEGURIDAD/GETONE_RESPUESTAS' , (req , res )=>{
                 RESPUESTA
             } =req.body;
             console.log(req.body)
-            const query =`SELECT a.COD_USUARIO FROM TBL_MS_USUARIOS a,  TBL_MS_PREGUNTAS_USUARIO b WHERE a.COD_USUARIO = b.COD_USUARIO AND b.RESPUESTA = '${RESPUESTA}' AND a.NOM_USUARIO = '${NOM_USUARIO}';`;
+            const query =`SELECT a.COD_USUARIO FROM TBL_MS_USUARIOS a,  TBL_MS_PREGUNTAS_USUARIO b WHERE a.COD_USUARIO = b.COD_USUARIO AND b.RESPUESTA = sha1('${RESPUESTA}') AND a.NOM_USUARIO = '${NOM_USUARIO}';`;
             mysqlConnection.query(query , (err , rows , fields) =>{
             if(!err){
             res.json(rows);
