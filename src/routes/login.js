@@ -17,7 +17,7 @@ router.post('/api/login', (req, res) => {
         } else {
             if (results.length > 0) {
                 if (results[0].IND_USUARIO === 'ACTIVO') {
-                    const token = jwt.sign({NOM_USUARIO}, 'my_ultrasecret_token', { expiresIn: '24h' });
+                    const token = jwt.sign({NOM_USUARIO}, 'my_ultrasecret_token');
                     res.json({ message: 'Inicio de sesión exitoso', user: results[0], token: token});
                 } else {
                     res.status(401).json({ error_type: 'inactive', message: 'Usuario inactivo' });
