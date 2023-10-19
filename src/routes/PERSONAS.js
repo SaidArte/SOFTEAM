@@ -75,7 +75,7 @@ router.post('/PERSONAS/INSERTAR' , (req , res )=>{
 });
 
 // METODO SELECT ONE (OBTENER LOS DATOS DE UN REGISTRO DE LA TABLA SELECCIONADA)
-router.post('/PERSONAS/GETONE/' , (req , res )=>{
+router.post('/PERSONAS/GETONE' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
         res.sendStatus(403);
