@@ -84,4 +84,30 @@ router.put('/SEGURIDAD/ACTUALIZAR_USUARIOS' , (req , res )=>{
     });
 });
 
+router.post('/SEGURIDAD/GETONE_PERSONA-USUARIOS' , (req , res )=>{
+    jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => { //Verifica si el token es el correcto.
+        if (err){
+            res.sendStatus(403);
+        }else {
+            try {
+                const {
+                    COD_PERSONA
+                    } =req.body;
+                    console.log(req.body)
+                    const query =`SELECT NOM_USUARIO FROM TBL_MS_USUARIOS WHERE COD_PERSONA = '${COD_PERSONA}';`;
+                    mysqlConnection.query(query , (err , rows , fields) =>{
+                        if(!err){
+                        res.json(rows);
+                        }else{
+                        console.log(err);
+                        }
+                    });
+            } catch (error) {
+                console.log(error);
+                res.status(400).json({ error: 'Datos inválidos'});
+            }
+        }
+     });
+});
+
 module.exports = router;
