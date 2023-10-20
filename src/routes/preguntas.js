@@ -84,10 +84,10 @@ router.get('/SEGURIDAD/GETONE_PREGUNTAS' , (req , res )=>{
         }else {
             try {
                 const {
-                        COD_PREGUNTA
+                        PREGUNTA
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_PREGUNTAS', 'ST', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO', '0', '${COD_PREGUNTA}', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`SELECT * FROM TBL_MS_PREGUNTAS WHERE PREGUNTA = '${PREGUNTA}';`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);
