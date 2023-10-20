@@ -77,7 +77,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_PREGUNTAS' , (req , res )=>{
 });
 
 
-router.get('/SEGURIDAD/GETONE_PREGUNTAS' , (req , res )=>{
+router.post('/SEGURIDAD/GETONE_PREGUNTAS' , (req , res )=>{
     jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
              res.sendStatus(403);
