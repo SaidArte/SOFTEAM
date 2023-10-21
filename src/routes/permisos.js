@@ -83,7 +83,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_PERMISOS' , (req , res )=>{
      });
 });
 
-
+//API de pruebas, muy util en algunos casos.
 router.get('/SEGURIDAD/GETONE_PERMISOS' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
@@ -95,7 +95,7 @@ router.get('/SEGURIDAD/GETONE_PERMISOS' , (req , res )=>{
                     COD_OBJETO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_PERMISOS', 'ST', '${COD_ROL}', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota??', 'CAMPEON', '${COD_OBJETO}', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`SELECT * FROM TBL_PERMISOS WHERE COD_ROL = '${COD_ROL}' AND COD_OBJETO = '${COD_OBJETO}';`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);
