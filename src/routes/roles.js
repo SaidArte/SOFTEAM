@@ -81,17 +81,17 @@ router.put('/SEGURIDAD/ACTUALIZAR_ROLES' , (req , res )=>{
 });
 
 //GET (select para buscar un registro en particular).
-router.get('/SEGURIDAD/GETONE_ROLES' , (req , res )=>{
+router.post('/SEGURIDAD/GETONE_ROLES' , (req , res )=>{
      jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
          if (err){
              res.sendStatus(403);
          }else {
             try {
                 const {
-                        COD_ROL
+                        NOM_ROL
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'ST', '${COD_ROL}', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`SELECT * FROM TBL_MS_ROLES WHERE NOM_ROL = '${NOM_ROL}';`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);
