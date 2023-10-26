@@ -38,7 +38,7 @@ router.post('/SEGURIDAD/INSERTAR_USUARIOS' , (req , res )=>{
                         IND_USUARIO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'I', '1', '${NOM_ROL}', '1', '0', '${COD_PERSONA}', '${NOM_USUARIO}','${PAS_USUARIO}','${IND_USUARIO}', '0', '1', '¿como que no?', '¿como que si?', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'I', '1', '${NOM_ROL}', '1', '0', '${COD_PERSONA}', '${NOM_USUARIO}','${PAS_USUARIO}','${IND_USUARIO}', '0', '2023-07-01', '1', '¿como que no?', '¿como que si?', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -65,10 +65,11 @@ router.put('/SEGURIDAD/ACTUALIZAR_USUARIOS' , (req , res )=>{
                         COD_USUARIO,
                         NOM_USUARIO,
                         NOM_ROL,
-                        IND_USUARIO
+                        IND_USUARIO,
+                        FEC_VENCIMIENTO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'U', '1', '${NOM_ROL}', '1', '${COD_USUARIO}', '1' , '${NOM_USUARIO}','1','${IND_USUARIO}', 0, '1', '¿Nombre de su primer mascota?', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'U', '1', '${NOM_ROL}', '1', '${COD_USUARIO}', '1' , '${NOM_USUARIO}','1','${IND_USUARIO}', 0, '${FEC_VENCIMIENTO}', '1', '¿Nombre de su primer mascota?', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})

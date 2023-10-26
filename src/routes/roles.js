@@ -35,7 +35,7 @@ router.post('/SEGURIDAD/INSERTAR_ROLES' , (req , res )=>{
                     DES_ROL
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'I', '1', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'I', '1', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -64,7 +64,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_ROLES' , (req , res )=>{
                     DES_ROL
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'U', '${COD_ROL}', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_ROLES', 'U', '${COD_ROL}', '${NOM_ROL}', '${DES_ROL}', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})

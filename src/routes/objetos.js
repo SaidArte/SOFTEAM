@@ -36,7 +36,7 @@ router.post('/SEGURIDAD/INSERTAR_OBJETOS' , (req , res )=>{
                     TIP_OBJETO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'I', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota??', 'CAMPEON', '0', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'I', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0', '¿Nombre de su primer mascota??', 'CAMPEON', '0', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -66,7 +66,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_OBJETOS' , (req , res )=>{
                     TIP_OBJETO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'U', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '0', '¿Nombre de su primer mascota??', 'CAMPEON','${COD_OBJETO}', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_OBJETOS', 'U', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0', '¿Nombre de su primer mascota??', 'CAMPEON','${COD_OBJETO}', '${OBJETO}', '${DES_OBJETO}', '${TIP_OBJETO}', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})
