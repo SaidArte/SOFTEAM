@@ -10,7 +10,7 @@ router.get('/SEGURIDAD/GETALL_PREGUNTAS' , (req , res )=>{
         if (err){
             res.sendStatus(403);
          }else {
-             const query =`SELECT * FROM TBL_MS_PREGUNTAS;`;
+             const query =`SELECT * FROM TBL_MS_PREGUNTAS ORDER BY COD_PREGUNTA DESC;`;
              mysqlConnection.query(query , (err , rows , fields) =>{
                  if(!err){
                  res.json(rows);

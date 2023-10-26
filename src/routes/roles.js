@@ -11,7 +11,7 @@ router.get('/SEGURIDAD/GETALL_ROLES' , (req , res )=>{
          if (err){
              res.sendStatus(403);
          }else {
-             const query =`SELECT * FROM TBL_MS_ROLES;`;
+             const query =`SELECT * FROM TBL_MS_ROLES ORDER BY COD_ROL DESC;`;
              mysqlConnection.query(query , (err , rows , fields) =>{
                  if(!err){
                  res.json(rows);

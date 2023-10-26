@@ -11,7 +11,7 @@ router.get('/SEGURIDAD/GETALL_OBJETOS' , (req , res )=>{
          if (err){
              res.sendStatus(403);
          }else {
-             const query =`SELECT * FROM TBL_OBJETOS;`; //Llamado al procedimiento almacenado del modulo de seguridad.
+             const query =`SELECT * FROM TBL_OBJETOS ORDER BY COD_OBJETO DESC;`; //Llamado al procedimiento almacenado del modulo de seguridad.
              mysqlConnection.query(query , (err , rows , fields) =>{
                  if(!err){
                  res.json(rows);
