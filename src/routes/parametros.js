@@ -92,10 +92,10 @@ router.post('/SEGURIDAD/GETONE_PARAMETROS' , (req , res )=>{
          }else {
             try {
                 const {
-                    COD_PARAMETRO
+                    PARAMETRO
                     } =req.body;
                     console.log(req.body)
-                    const query =`SELECT * FROM TBL_MS_PARAMETROS WHERE COD_PARAMETRO = '${COD_PARAMETRO}';`;
+                    const query =`SELECT * FROM TBL_MS_PARAMETROS WHERE PARAMETRO = '${PARAMETRO}';`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);
