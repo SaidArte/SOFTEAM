@@ -37,7 +37,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_PASS_USUARIOS' , (req , res )=>{
                 PAS_USUARIO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'C', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','${PAS_USUARIO}','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'C', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','${PAS_USUARIO}','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
             mysqlConnection.query(query , (err , rows , fields) =>{
             if(!err){
                 res.json({status: 'Registro actualizado correctamente'})
@@ -59,7 +59,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_INT_FALLIDOS' , (req , res )=>{
                 NUM_INTENTOS_FALLIDOS
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'F', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '${NUM_INTENTOS_FALLIDOS}', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'F', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '${NUM_INTENTOS_FALLIDOS}', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
             mysqlConnection.query(query , (err , rows , fields) =>{
             if(!err){
                 res.json({status: 'Registro actualizado correctamente'})
@@ -80,7 +80,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_FECHA_ACCESO' , (req , res )=>{
                 COD_USUARIO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'A', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'A', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
             mysqlConnection.query(query , (err , rows , fields) =>{
             if(!err){
                 res.json({status: 'Registro actualizado correctamente'})
@@ -101,7 +101,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_FECHA_VENCIMIENTO' , (req , res )=>{
                 COD_USUARIO
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'V', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_USUARIOS', 'V', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','pass','ACTIVO', '0', '2023-07-01', '1', '¿Nombre de su primer mascota??', 'CAMPEON', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
             mysqlConnection.query(query , (err , rows , fields) =>{
             if(!err){
                 res.json({status: 'Registro actualizado correctamente'})
@@ -145,7 +145,7 @@ router.post('/SEGURIDAD/INSERTAR_RESPUESTAS' , (req , res )=>{
             RESPUESTA
             } =req.body;
             console.log(req.body)
-            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_PREGUNTAS_USUARIO', 'I', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','1','ACTIVO', '0', '2023-07-01', '1', '${PREGUNTA}', '${RESPUESTA}', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+            const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_PREGUNTAS_USUARIO', 'I', '1', 'Admins', '1', '${COD_USUARIO}', '1', 'nombreusuario','1','ACTIVO', '0', '2023-07-01', '1', '${PREGUNTA}', '${RESPUESTA}', '1', '1', '1', '1', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
             mysqlConnection.query(query , (err , rows , fields) =>{
             if(!err){
                 res.json({status: 'Respuesta de seguridad ingresada correctamente'})

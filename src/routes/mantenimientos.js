@@ -37,7 +37,7 @@ router.post('/SEGURIDAD/INSERTAR_MANTENIMIENTOS' , (req , res )=>{
                     MON_MANTENIMIENTO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MANTENIMIENTOS', 'I', '1', 'Admins', '1', '${COD_USUARIO}', '0','1', 'solo consultas','ACTIVO', '0', '2023-07-01', '0', '¿como que no?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '${FEC_HR_MANTENIMIENTO}', '${TIP_MANTENIMIENTO}', '${DES_MANTENIMIENTO}', '${MON_MANTENIMIENTO}');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MANTENIMIENTOS', 'I', '1', 'Admins', '1', '${COD_USUARIO}', '0','1', 'solo consultas','ACTIVO', '0', '2023-07-01', '0', '¿como que no?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '${FEC_HR_MANTENIMIENTO}', '${TIP_MANTENIMIENTO}', '${DES_MANTENIMIENTO}', '${MON_MANTENIMIENTO}', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -68,7 +68,7 @@ router.put('/SEGURIDAD/ACTUALIZAR_MANTENIMIENTOS' , (req , res )=>{
                     MON_MANTENIMIENTO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MANTENIMIENTOS', 'U', '1', 'Admins', '1', '${COD_USUARIO}', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0', '¿como que no?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '${COD_MANTENIMIENTO}', '${FEC_HR_MANTENIMIENTO}', '${TIP_MANTENIMIENTO}', '${DES_MANTENIMIENTO}', '${MON_MANTENIMIENTO}');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MANTENIMIENTOS', 'U', '1', 'Admins', '1', '${COD_USUARIO}', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0', '¿como que no?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '${COD_MANTENIMIENTO}', '${FEC_HR_MANTENIMIENTO}', '${TIP_MANTENIMIENTO}', '${DES_MANTENIMIENTO}', '${MON_MANTENIMIENTO}', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})
@@ -95,7 +95,7 @@ router.get('/SEGURIDAD/GETONE_MANTENIMIENTOS' , (req , res )=>{
                         COD_MANTENIMIENTO
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MANTENIMIENTOS', 'ST', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0', '¿como que no?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '${COD_MANTENIMIENTO}', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MANTENIMIENTOS', 'ST', '1', 'Admins', '1', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0', '¿como que no?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '${COD_MANTENIMIENTO}', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', 'Parametro', 'Descripcion', '1', '0', '0');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                     res.json(rows);
