@@ -34,10 +34,10 @@ router.post('/SEGURIDAD/INSERTAR_PARAMETROS' , (req , res )=>{
                     PARAMETRO,
                     DES_PARAMETRO,
                     VALOR,
-                    COD_USUARIO_CREADOR
+                    USUARIO_CREADOR
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_PARAMETROS', 'I', '1', 'admin', 'desrol', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', '${PARAMETRO}', '${DES_PARAMETRO}', '${VALOR}', '${COD_USUARIO_CREADOR}', '0');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_PARAMETROS', 'I', '1', 'admin', 'desrol', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '0', '${PARAMETRO}', '${DES_PARAMETRO}', '${VALOR}', '${USUARIO_CREADOR}', '0');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro guardado correctamente'})
@@ -65,10 +65,10 @@ router.put('/SEGURIDAD/ACTUALIZAR_PARAMETROS' , (req , res )=>{
                     PARAMETRO,
                     DES_PARAMETRO,
                     VALOR,
-                    COD_USUARIO_MODIFICADOR
+                    USUARIO_MODIFICADOR
                     } =req.body;
                     console.log(req.body)
-                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_PARAMETROS', 'U', '1', 'admin', 'desrol', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '${COD_PARAMETRO}', '${PARAMETRO}', '${DES_PARAMETRO}', '${VALOR}', '0', '${COD_USUARIO_MODIFICADOR}');`;
+                    const query =`CALL SP_MOD_SEGURIDAD('TBL_MS_PARAMETROS', 'U', '1', 'admin', 'desrol', '0', '0','1', 'solo consultas','ACTIVO','0', '2023-07-01', '0','¿Nombre de su primer mascota?', 'CAMPEON', '1', 'ol', 'nj', 'bgv', 'S', 'S', 'N', '1', '2023-07-01 16:06:00', 'Mantenimiento predictivo', '1', '100', '${COD_PARAMETRO}', '${PARAMETRO}', '${DES_PARAMETRO}', '${VALOR}', '0', '${USUARIO_MODIFICADOR}');`;
                     mysqlConnection.query(query , (err , rows , fields) =>{
                     if(!err){
                         res.json({status: 'Registro actualizado correctamente'})
