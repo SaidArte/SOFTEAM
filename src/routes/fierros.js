@@ -38,13 +38,14 @@ router.post('/FIERROS/INSERTAR' , (req , res )=>{
         TIP_FIERRO,
         IMG_FIERRO,
         NUM_FOLIO_FIERRO,
-        MON_CERTIFICO_FIERRO
+        MON_CERTIFICO_FIERRO,
+        ESTADO
         } =req.body;
     console.log(req.body)
     //Aqui llamamos a los parametros del procedmiento 
     const query =`
 
-      CALL SP_MOD_FIERRO('FIERROS','I',?,?,?,?,?,?,?);
+      CALL SP_MOD_FIERRO('FIERROS','I',?,?,?,?,?,?,?,?);
    
    `;
    mysqlConnection.query(query , [
@@ -56,7 +57,8 @@ router.post('/FIERROS/INSERTAR' , (req , res )=>{
          TIP_FIERRO,
          IMG_FIERRO,
          NUM_FOLIO_FIERRO,
-         MON_CERTIFICO_FIERRO
+         MON_CERTIFICO_FIERRO,
+         ESTADO
          //Aqui mostramos un mensaje si el procedimiento fue realizado correctamento o muestra un mensaje de error
         ] , (err , rows , fields) =>{
           if(!err){
@@ -103,11 +105,12 @@ router.put('/FIERROS/ACTUALIZAR/:COD_FIERRO', (req, res) => {
       TIP_FIERRO,
       IMG_FIERRO,
       NUM_FOLIO_FIERRO,
-      MON_CERTIFICO_FIERRO
+      MON_CERTIFICO_FIERRO,
+      ESTADO
     } = req.body;
     const { COD_FIERRO } = req.params;
     const query = `
-      CALL SP_MOD_FIERRO('FIERROS','U','${COD_FIERRO}', '${FEC_TRAMITE_FIERRO}','1', '${TIP_FIERRO}', '${IMG_FIERRO}', '${NUM_FOLIO_FIERRO}', '${MON_CERTIFICO_FIERRO}')`;
+      CALL SP_MOD_FIERRO('FIERROS','U','${COD_FIERRO}', '${FEC_TRAMITE_FIERRO}','1', '${TIP_FIERRO}', '${IMG_FIERRO}', '${NUM_FOLIO_FIERRO}', '${MON_CERTIFICO_FIERRO}','${ESTADO}')`;
     mysqlConnection.query(query, (err, result) => {
       if (!err) {
         res.json({ Status: 'Datos actualizados' });
