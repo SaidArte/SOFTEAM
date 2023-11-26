@@ -15,11 +15,15 @@ router.get('/CVENTA/GETALL' , (req , res )=>{
           res.sendStatus(403);
        }else {
            const query =` 
-           select a.COD_CVENTA, a.FEC_CVENTA, a.COD_VENDEDOR, b.NOM_PERSONA as NombreVendedor, a.NOM_COMPRADOR, a.DNI_COMPRADOR, c.COD_ANIMAL, a.FOL_CVENTA, a.ANT_CVENTA 
-           from EXPEDIENTE_CVENTA a, PERSONAS b, ANIMALES c
-           WHERE a.COD_VENDEDOR =b.COD_PERSONA
-           AND a.COD_ANIMAL =c.COD_ANIMAL
-            ORDER BY COD_CVENTA;  `; //Llamado al procedimiento almacenado del modulo de seguridad.
+                 select a.COD_CVENTA , a.FEC_CVENTA, a.COD_PERSONA, c.NOM_PERSONA as NombreVendedor, a.NOM_COMPRADOR,
+                 a.DNI_COMPRADOR,a.CLAS_ANIMAL,  a.RAZ_ANIMAL, a.COL_ANIMAL, 
+                 a.COD_FIERRO,  a.VEN_ANIMAL, a.HER_ANIMAL, a.CANT_CVENTA, a.FOL_CVENTA, a.ANT_CVENTA, a.IND_CVENTA
+                 FROM EXPEDIENTE_CVENTA a, FIERROS b, PERSONAS c
+                 WHERE a.COD_PERSONA =c.COD_PERSONA
+                 AND a.COD_FIERRO= b.COD_FIERRO
+                ORDER BY COD_CVENTA;
+        
+ `;
            mysqlConnection.query(query , (err , rows , fields) =>{
                if(!err){
                res.json(rows);
@@ -30,8 +34,7 @@ router.get('/CVENTA/GETALL' , (req , res )=>{
       }
    });
 })
-
-//Metodo de Insertar Datos(POST), nos permite insertar un nuevo dato elegiendo una tablas como ser la de Animal o Expediente_cventa 
+//Metodo de Insertar Datos(POST), nos permite insertar un nuevo dato de Expediente_cventa 
 
 router.post('/CVENTA/INSERTAR' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
@@ -41,18 +44,26 @@ router.post('/CVENTA/INSERTAR' , (req , res )=>{
           try {
               const {
                      // COD_CVENTA ,
-                      COD_VENDEDOR ,
+                      COD_PERSONA ,
                       NOM_COMPRADOR,
                       DNI_COMPRADOR,
-                      COD_ANIMAL ,
+                      CLAS_ANIMAL ,
+                      RAZ_ANIMAL ,
+                      COL_ANIMAL,
+                      COD_FIERRO ,
+                      VEN_ANIMAL ,
+                      HER_ANIMAL ,
+                      CANT_CVENTA ,
                       FOL_CVENTA ,
                       ANT_CVENTA,
+                      IND_CVENTA 
+
                    
                   } =req.body;
                   console.log(req.body)
                   
-                  //const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','I',0,'${COD_VENDEDOR}','${COD_COMPRADOR}','${COD_ANIMAL}','${FOL_CVENTA}','${ANT_CVENTA}','VACA','HEREFORD','BLANCO',6,'S','N','ninguno');`;
-                   const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','I', 0,'${COD_VENDEDOR}', '${NOM_COMPRADOR}', '${DNI_COMPRADOR}', '${COD_ANIMAL}' , '${FOL_CVENTA}' , '${ANT_CVENTA}',  'caballo','pura sangre','cafes', 23, 'N', 'S', 'NINGUNA');`;
+                 
+                   const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','I', 0,'${COD_PERSONA}', '${NOM_COMPRADOR}', '${DNI_COMPRADOR}','${CLAS_ANIMAL}','${RAZ_ANIMAL}','${COL_ANIMAL}','${COD_FIERRO}','${VEN_ANIMAL}','${HER_ANIMAL}','${CANT_CVENTA}' , '${FOL_CVENTA}' , '${ANT_CVENTA}', '${IND_CVENTA}');`;
                   mysqlConnection.query(query , (err , rows , fields) =>{
                   if(!err){
                       res.json({status: 'Registro guardado correctamente'})
@@ -69,6 +80,8 @@ router.post('/CVENTA/INSERTAR' , (req , res )=>{
   });
 });
 
+//PUT: Actualizamos cualquier registro llamando al COD_CVENTA
+
 router.put('/CVENTA/ACTUALIZAR/:COD_CVENTA' , (req , res )=>{
   jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
     if (err){
@@ -78,18 +91,26 @@ router.put('/CVENTA/ACTUALIZAR/:COD_CVENTA' , (req , res )=>{
         try {
           const {
                  //COD_CVENTA ,
-                 COD_VENDEDOR ,
+                 COD_PERSONA ,
                  NOM_COMPRADOR,
                  DNI_COMPRADOR,
-                 COD_ANIMAL ,
+                 CLAS_ANIMAL ,
+                 RAZ_ANIMAL ,
+                 COL_ANIMAL,
+                 COD_FIERRO ,
+                 VEN_ANIMAL ,
+                 HER_ANIMAL ,
+                 CANT_CVENTA ,
                  FOL_CVENTA ,
                  ANT_CVENTA,
+                 IND_CVENTA 
          
               } =req.body;
                const { COD_CVENTA } = req.params;
               console.log(req.body)
-              //const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','U','${COD_CVENTA}','${COD_VENDEDOR}','${COD_COMPRADOR}','${COD_ANIMAL}','${FOL_CVENTA}','${ANT_CVENTA}','VACA','HEREFORD','BLANCO',6,'S','N','ninguno');`;
-              const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','U','${COD_CVENTA}' ,'${COD_VENDEDOR}', '${NOM_COMPRADOR}', '${DNI_COMPRADOR}', '${COD_ANIMAL}' , '${FOL_CVENTA}' , '${ANT_CVENTA}',  'caballo','pura sangre','cafes', 23, 'N', 'S', 'NINGUNA');`;
+              
+             // const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','U','${COD_CVENTA}' ,'${COD_VENDEDOR}', '${NOM_COMPRADOR}', '${DNI_COMPRADOR}', '${COD_ANIMAL}' , '${FOL_CVENTA}' , '${ANT_CVENTA}',  'caballo','pura sangre','cafes', 23, 'N', 'S', 'NINGUNA');`;
+                const query =`CALL SP_MOD_CVENTA('EXPEDIENTE_CVENTA','U', '${COD_CVENTA}','${COD_PERSONA}', '${NOM_COMPRADOR}', '${DNI_COMPRADOR}', '${CLAS_ANIMAL}','${RAZ_ANIMAL}','${COL_ANIMAL}','${COD_FIERRO}','${VEN_ANIMAL}','${HER_ANIMAL}','${CANT_CVENTA}' , '${FOL_CVENTA}' , '${ANT_CVENTA}', '${IND_CVENTA}');`;
               mysqlConnection.query(query, (err, result) => {
                 if (!err) {
                   res.json({ Status: 'Datos actualizados' });
@@ -105,6 +126,8 @@ router.put('/CVENTA/ACTUALIZAR/:COD_CVENTA' , (req , res )=>{
     }
   });
 });
+
+
 
 
 
