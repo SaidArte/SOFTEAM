@@ -244,20 +244,10 @@ router.post('/SEGURIDAD/RESTAURAR-BACKUP', upload.single('backupFile'), async (r
             database: 'SOFTEAM',
         };
 
-        let backupFilePath;
-
         // Verificar si se proporcionó un archivo en la solicitud
         if (req.file) {
             // Si hay un archivo en la solicitud, usarlo
             backupFilePath = req.file.path;
-        } else if (req.body.localFilePath) {
-            // Si no hay un archivo en la solicitud, intentar buscar un archivo local en el servidor
-            backupFilePath = req.body.localFilePath;
-
-            // Verificar si el archivo local existe
-            if (!fs.existsSync(backupFilePath)) {
-                return res.status(400).json({ error: 'El archivo local no existe.' });
-            }
         } else {
             return res.status(400).json({ error: 'Debe proporcionar un archivo de respaldo o una ruta local.' });
         }
