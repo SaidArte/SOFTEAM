@@ -36,14 +36,15 @@ router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
         DNI_PERSONA,
         TEL_PERSONA,
         FEC_SACRIFICIO,
-        COD_ANIMAL,
-        DIR_PSACRIFICIO
+        DIR_PSACRIFICIO,
+        ANIMAL,
+        DET_ANIMAL
         } =req.body;
       console.log(req.body)
       //Aqui llamamos a los parametros del procedmiento 
       const query =`
 
-       CALL SP_MOD_PERMISOS_SACRIFICIO('PERMISOS_SACRIFICIO','I',?,?,?,?,?,?,?);
+       CALL SP_MOD_PERMISOS_SACRIFICIO('PERMISOS_SACRIFICIO','I',?,?,?,?,?,?,?,?);
    
     `;
     mysqlConnection.query(query , [
@@ -54,8 +55,9 @@ router.post('/PSACRIFICIO/INSERTAR' , (req , res )=>{
             DNI_PERSONA,
             TEL_PERSONA,
             FEC_SACRIFICIO,
-            COD_ANIMAL,
-            DIR_PSACRIFICIO
+            DIR_PSACRIFICIO,
+            ANIMAL,
+            DET_ANIMAL
             //Aqui mostramos un mensaje si el procedimiento fue realizado correctamento o muestra un mensaje de error
             ] , (err , rows , fields) =>{
             if(!err){
@@ -102,14 +104,16 @@ router.put('/PSACRIFICIO/ACTUALIZAR/:COD_PSACRIFICIO' , (req , res)=>{
           DNI_PERSONA,
           TEL_PERSONA,
           FEC_SACRIFICIO,
-          COD_ANIMAL,
-          DIR_PSACRIFICIO
+          DIR_PSACRIFICIO,
+          ANIMAL,
+          DET_ANIMAL
+
       } =req.body;
       const {COD_PSACRIFICIO} = req.params;
       const query = `
       CALL SP_MOD_PERMISOS_SACRIFICIO
       ('PERMISOS_SACRIFICIO','U','${COD_PSACRIFICIO}',
-      '${NOM_PERSONA}','${DNI_PERSONA}','${TEL_PERSONA}','${FEC_SACRIFICIO}','${COD_ANIMAL}','${DIR_PSACRIFICIO}')`;
+      '${NOM_PERSONA}','${DNI_PERSONA}','${TEL_PERSONA}','${FEC_SACRIFICIO}','${DIR_PSACRIFICIO}','${ANIMAL}', '${DET_ANIMAL}')`;
       mysqlConnection.query(query , (err , result) =>{
         if(!err){
           res.json({Status: 'Datos actualizados'});
