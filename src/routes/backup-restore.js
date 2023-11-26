@@ -223,9 +223,9 @@ router.get('/SEGURIDAD/BACKUP-LIST', async (req, res) => {
     }
 });
 
-// Ruta para restaurar la base de datos desde un archivo de respaldo
 router.post('/SEGURIDAD/RESTAURAR-BACKUP', upload.single('backupFile'), async (req, res) => {
     try {
+        
         // Verificar el token JWT
         const decodedToken = await new Promise((resolve, reject) => {
             jwt.verify(req.token, 'my_ultrasecret_token', (err, data) => {
@@ -237,6 +237,7 @@ router.post('/SEGURIDAD/RESTAURAR-BACKUP', upload.single('backupFile'), async (r
             });
         });
 
+    //En caso que el token sea valido.
         const databaseConfig = {
             host: '82.180.133.39',
             user: 'soft',
@@ -245,22 +246,19 @@ router.post('/SEGURIDAD/RESTAURAR-BACKUP', upload.single('backupFile'), async (r
         };
 
         // Verificar si se proporcionó un archivo en la solicitud
-        if (req.file) {
-            // Si hay un archivo en la solicitud, usarlo
-            backupFilePath = req.file.path;
-        } else {
-            return res.status(400).json({ error: 'Debe proporcionar un archivo de respaldo o una ruta local.' });
+        if (!req.file) {
+            return res.status(400).json({ error: 'Debe proporcionar un archivo de respaldo.' });
         }
 
+        const backupFilePath = req.file.path;
+
         // Restaurar la base de datos desde el archivo de respaldo
-        const restoreCommand = `/usr/bin/mysqldump -h ${databaseConfig.host} -u ${databaseConfig.user} -p${databaseConfig.password} ${databaseConfig.database} < ${backupFilePath}`;
+        const restoreCommand = `/usr/bin/mysql -h ${databaseConfig.host} -u ${databaseConfig.user} -p${databaseConfig.password} ${databaseConfig.database} < ${backupFilePath}`;
 
         await exec(restoreCommand);
 
         // Eliminar el archivo temporal si se cargó
-        if (req.file) {
-            fs.unlinkSync(backupFilePath);
-        }
+        fs.unlinkSync(backupFilePath);
 
         // Enviar respuesta exitosa
         res.json({ message: 'Base de datos restaurada con éxito.' });
