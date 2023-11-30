@@ -15,7 +15,7 @@ router.get('/PERSONAS/GETALL' , (req , res )=>{
       LLAMADO AL PROCEDIMIENTO ALMACENADO POR MEDIO DE UN CALL Y SUSTITULLENDO CADA
       PARAMETRO POR UN SIGNO DE INTERROGACIÓN (?).
       */
-      const query =`SELECT a.COD_PERSONA, a.DNI_PERSONA, a.NOM_PERSONA, a.GEN_PERSONA, a.FEC_NAC_PERSONA, a.IMG_PERSONA, a.IND_PERSONA,
+      const query =`SELECT a.COD_PERSONA, a.DNI_PERSONA, a.NOM_PERSONA, a.GEN_PERSONA, a.FEC_NAC_PERSONA, a.IMG_PERSONA,
       b.COD_DIRECCION, b.DES_DIRECCION, b.TIP_DIRECCION, c.COD_EMAIL, c.DIR_EMAIL,
       d.COD_TELEFONO, d.NUM_TELEFONO, d.TIP_TELEFONO, d.DES_TELEFONO, d.OPE_TELEFONO, d.IND_TELEFONO
       FROM PERSONAS a
@@ -48,7 +48,6 @@ router.post('/PERSONAS/INSERTAR' , (req , res )=>{
                 GEN_PERSONA,
                 FEC_NAC_PERSONA,
                 IMG_PERSONA,
-                IND_PERSONA,
                 DES_DIRECCION,
                 TIP_DIRECCION,
                 DIR_EMAIL,
@@ -59,7 +58,7 @@ router.post('/PERSONAS/INSERTAR' , (req , res )=>{
                 IND_TELEFONO             
                   } =req.body;
                   console.log(req.body)
-                  const query =`CALL SP_MOD_PERSONA('PERSONAS', 'I', '1', '${DNI_PERSONA}', '${NOM_PERSONA}', '${GEN_PERSONA}','${FEC_NAC_PERSONA}','${IMG_PERSONA}', '${IND_PERSONA}', '1', '${DES_DIRECCION}', '${TIP_DIRECCION}', '1', '${DIR_EMAIL}', '1', '${NUM_TELEFONO}', '${TIP_TELEFONO}', '${DES_TELEFONO}', '${OPE_TELEFONO}', '${IND_TELEFONO}');`;
+                  const query =`CALL SP_MOD_PERSONA('PERSONAS', 'I', '1', '${DNI_PERSONA}', '${NOM_PERSONA}', '${GEN_PERSONA}','${FEC_NAC_PERSONA}','${IMG_PERSONA}', '1', '${DES_DIRECCION}', '${TIP_DIRECCION}', '1', '${DIR_EMAIL}', '1', '${NUM_TELEFONO}', '${TIP_TELEFONO}', '${DES_TELEFONO}', '${OPE_TELEFONO}', '${IND_TELEFONO}');`;
                   mysqlConnection.query(query , (err , rows , fields) =>{
                   if(!err){
                       res.json({status: 'Registro guardado correctamente'})
@@ -116,7 +115,6 @@ router.put('/PERSONAS/ACTUALIZAR/:COD_PERSONA' , (req , res )=>{
           GEN_PERSONA,
           FEC_NAC_PERSONA,
           IMG_PERSONA,
-          IND_PERSONA,
           COD_DIRECCION,
           DES_DIRECCION,
           TIP_DIRECCION,
@@ -131,7 +129,7 @@ router.put('/PERSONAS/ACTUALIZAR/:COD_PERSONA' , (req , res )=>{
               } =req.body;
               const { COD_PERSONA } = req.params;
               console.log(req.body)
-              const query =`CALL SP_MOD_PERSONA('PERSONAS', 'U', '${COD_PERSONA}', '${DNI_PERSONA}', '${NOM_PERSONA}', '${GEN_PERSONA}','${FEC_NAC_PERSONA}','${IMG_PERSONA}','${IND_PERSONA}','${COD_DIRECCION}', '${DES_DIRECCION}', '${TIP_DIRECCION}', '${COD_EMAIL}', '${DIR_EMAIL}','${COD_TELEFONO}', '${NUM_TELEFONO}', '${TIP_TELEFONO}', '${DES_TELEFONO}', '${OPE_TELEFONO}', '${IND_TELEFONO}');`;
+              const query =`CALL SP_MOD_PERSONA('PERSONAS', 'U', '${COD_PERSONA}', '${DNI_PERSONA}', '${NOM_PERSONA}', '${GEN_PERSONA}','${FEC_NAC_PERSONA}','${IMG_PERSONA}','${COD_DIRECCION}', '${DES_DIRECCION}', '${TIP_DIRECCION}', '${COD_EMAIL}', '${DIR_EMAIL}','${COD_TELEFONO}', '${NUM_TELEFONO}', '${TIP_TELEFONO}', '${DES_TELEFONO}', '${OPE_TELEFONO}', '${IND_TELEFONO}');`;
               mysqlConnection.query(query, (err, result) => {
                 if (!err) {
                   res.json({ Status: 'Datos actualizados' });
