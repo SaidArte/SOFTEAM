@@ -39,14 +39,14 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
               MAT_VEHICULO,
               COL_VEHICULO,
               MON_TRASLADO,
-              COD_FIERRO,
-              CAN_GANADO,             
+              CAN_GANADO, 
+              ESTADO            
               
           } =req.body;
           console.log(req.body)
           const query =`
 
-          CALL SP_MOD_PERMISOS_TRASLADO('PERMISOS_TRASLADO','I',0,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?);
+          CALL SP_MOD_PERMISOS_TRASLADO('PERMISOS_TRASLADO','I',0,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
       
       `;
       mysqlConnection.query(query , [
@@ -62,8 +62,8 @@ router.post('/PTRASLADO/INSERTAR' , (req , res )=>{
               MAT_VEHICULO,
               COL_VEHICULO,
               MON_TRASLADO,
-              COD_FIERRO,
-              CAN_GANADO
+              CAN_GANADO,
+              ESTADO
       ] , (err , rows , fields) =>{
           if(!err){
               res.json({status: 'Permiso de Traslado registrado'})
@@ -95,12 +95,14 @@ router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
           MOD_VEHICULO,
           MAT_VEHICULO,
           COL_VEHICULO,
-          MON_TRASLADO
+          MON_TRASLADO,
+          CAN_GANADO,
+          ESTADO
           
           
       } =req.body;
       console.log(req.body)
-      const query =`CALL SP_MOD_PERMISOS_TRASLADO('PERMISOS_TRASLADO','U',?,?,?,?,?,?,?,?,?,?,?,?,?,0,0,0);`;
+      const query =`CALL SP_MOD_PERMISOS_TRASLADO('PERMISOS_TRASLADO','U',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`;
       mysqlConnection.query(query , [
 
           COD_PTRASLADO,
@@ -115,7 +117,10 @@ router.put('/PTRASLADO/ACTUALIZAR/' , (req , res)=>{
           MOD_VEHICULO,
           MAT_VEHICULO,
           COL_VEHICULO,
-          MON_TRASLADO
+          MON_TRASLADO,
+          CAN_GANADO,
+          ESTADO
+
           
           
           ] , (err , rows , fields) =>{
@@ -151,14 +156,13 @@ router.get('/PTRASLADO/GETONE/' , (req , res )=>{
               MAT_VEHICULO,
               COL_VEHICULO,
               MON_TRASLADO,
-              COD_DTRASLADO,
-              COD_FIERRO,
-              CAN_GANADO
+              CAN_GANADO,
+              ESTADO
         } =req.body;
         console.log(req.body)
         const query =`
 
-      CALL SP_MOD_PERMISOS_TRASLADO(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+      CALL SP_MOD_PERMISOS_TRASLADO(?,'ST',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
       `;
       mysqlConnection.query(query , [
@@ -177,9 +181,8 @@ router.get('/PTRASLADO/GETONE/' , (req , res )=>{
               MAT_VEHICULO,
               COL_VEHICULO,
               MON_TRASLADO,
-              COD_DTRASLADO,
-              COD_FIERRO,
-              CAN_GANADO
+              CAN_GANADO,
+              ESTADO
       ] , (err , rows , fields) =>{
         if(!err){
           res.json(rows);
