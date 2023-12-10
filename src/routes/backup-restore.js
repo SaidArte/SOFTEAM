@@ -48,7 +48,7 @@ router.post('/SEGURIDAD/BACKUP', async (req, res) => {
         const formattedTime = `${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
         const formattedDateTime = `${formattedDate}_${formattedTime}`;
 
-        const backupFileName = `backup-SOFTEAM-${formattedDateTime}.sql`;
+        const backupFileName = `backup-JTALANGA-${formattedDateTime}.sql`;
         const backupDirectory = path.join(__dirname, 'backups');
         const backupFilePath = path.join(backupDirectory, backupFileName);
 
