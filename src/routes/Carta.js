@@ -11,7 +11,7 @@ router.get('/CARTA/GETALL' , (req , res ) =>{
     if (err){
         res.sendStatus(403);
     }else {
-      mysqlConnection.query('SELECT * FROM CARTA_VENTA' , ( err, rows , fields ) =>{
+      mysqlConnection.query('SELECT a.COD_CVENTA, a.FEC_CVENTA, b.NOM_PERSONA as NOMBRE_VENDEDOR, a.NOM_COMPRADOR, a.DNI_COMPRADOR, a.CLAS_ANIMAL, a.COL_ANIMAL, c.IMG_FIERRO, a.VEN_ANIMAL, a.HER_ANIMAL, a.CANT_CVENTA, a.FOL_CVENTA, a.ANT_CVENTA, a.IND_CVENTA FROM CARTA_VENTA a, PERSONAS b, FIERROS c WHERE a.COD_PERSONA = b.COD_PERSONA AND a.COD_FIERRO = c.COD_FIERRO;' , ( err, rows , fields ) =>{
         if(!err){
           res.json(rows);
         }else{
