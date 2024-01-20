@@ -70,6 +70,7 @@ app.use(require ('./routes/Animal'));
 app.use(require ('./routes/bitacora'));
 app.use(require ('./routes/parametros'));
 app.use(require ('./routes/backup-restore'));
+app.use(require ('./routes/Carta'));
 //app.use(require ('./routes/detalletraslado'));
 
 
